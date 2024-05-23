@@ -1,0 +1,16 @@
+Pages:
+	- Login
+	- Sign up
+		* Create an account
+		* Verify
+	- Home
+	- Dashboard
+		* Booked tickets
+		* bookmarked movies
+	- Movies
+	- Search
+	- Cinema schedule
+
+(admin)
+	- Create a movie schedule
+	- Edit a movie schedule
