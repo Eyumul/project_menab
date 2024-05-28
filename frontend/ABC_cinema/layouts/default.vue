@@ -1,0 +1,103 @@
+<template>
+    <div class="text-white slideshow">
+        <header class="h-full flex flex-col justify-between ">
+            <nav class="flex h-20 justify-between trans sticky top-0">
+                <div class="px-3"><NuxtLink to = "/"><p class="logo">ABC_Cinema</p></NuxtLink></div>
+                <ul class = "flex gap-x-12 px-9 items-center ">
+                    <li><NuxtLink to = "">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </NuxtLink></li>
+                    <li><NuxtLink to = "/dashboard">Dashboard</NuxtLink></li>
+                    <li><NuxtLink to = "/movies">Movies</NuxtLink></li>
+                    <li><NuxtLink to = "/schedule">Schedule</NuxtLink></li>
+                    <li><NuxtLink to = "">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7">
+                            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                        </svg>
+                    </NuxtLink></li>
+                </ul>
+            </nav>
+            <div>
+                <ul class="flex justify-between px-8">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                            <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </li>
+                </ul>
+
+                <div class="flex gap-x-8 mt-72 pb-2 justify-center items-center">
+                    <span class="dotActive"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div>
+        <slot />
+    </div>
+</template>
+
+<script setup>
+
+</script>
+
+<style>
+/*
+
+dark blue: #0089D0
+light blue: #24B4FF 
+
+*/
+.slideshow {
+    height: 637px;
+    width:100%;
+    background-image: url('/figmaImage/slideshow3.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.trans {
+    background-color: rgb(0, 0, 0,0);
+    background-image: linear-gradient(rgb(0, 0, 0),rgba(110, 110, 110, 0));
+}
+.logo {
+    font-family: sans-serif;
+    font-size: 32px;
+    background: -webkit-linear-gradient(right, white, #0089D0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+li:hover {
+    color:#0089D0;
+}
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #959494;
+    border-radius: 50%;
+    display: inline-block;    
+}
+.dot:hover{
+    background-color:#0089D0;
+}
+.dotActive {
+    height: 15px;
+    width: 15px;
+    background-color: #DAD8D8;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dotActive:hover {
+    background-color: #0089D0;
+}
+</style>
