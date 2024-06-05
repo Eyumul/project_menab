@@ -28,3 +28,4 @@ This project is a cinema schedule website where users can browse movies, view sc
 - Docker
 
 ## Screenshots
+![menab_progress_screenshot](https://github.com/Eyumul/project_menab/assets/88399516/ac83584c-394c-4c6f-98cb-da957a5fcd52)
