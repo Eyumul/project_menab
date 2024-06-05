@@ -6,10 +6,10 @@
             </svg>
         </div>
         <div class="flex justify-between w-[500px]">
-            <p class="text-2xl w-[350px]"><NuxtLink to="/movies/movieOne" class="underline">Kingdom of the planet of the apes</NuxtLink>: <span>(Action, Sci-fi)</span></p>
+            <p class="text-2xl w-[350px]"><NuxtLink to="/movies/movieOne" class="underline">{{movietitle}}</NuxtLink>: <span>{{ genre }}</span></p>
             <div>
-                <p class="text-[24px] text-right">2h 25m</p>
-                <p class="s16 textColor text-rightr">May 23 - 7:00PM</p>
+                <p class="text-[24px] text-right">{{ duration }}</p>
+                <p class="s16 textColor text-rightr">{{ date }}</p>
             </div>
         </div>
         <div class="flex space-x-[32px] bg-[#0089D0] w-[550px] h-[60px] rounded-b-[20px] items-center justify-center">
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-
+const props = defineProps(["movietitle","genre","duration","date"])
 </script>
 
 <style>

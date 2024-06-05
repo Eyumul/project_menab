@@ -11,7 +11,7 @@
         </div>
         <div v-for = "trendings in trendingmovie.movie" >
             <div v-if="trendings.trending">
-                <trending :movietitle="trendings.title" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
+                <trending :movietitle="trendings.title" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :date="trendings.schedules[0].showtime" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
             </div>
         </div>
 
@@ -20,8 +20,15 @@
             <p id="here" class="s32 font-normal">My Dashboard</p>
         </div>
         <div class="flex flex-col mx-[138px] py-20 space-y-[125px]">
-            <div class="text-center text-xs text-gray-400">
-                Sign up to see your movies tickets and movies
+            <div class = "space-y-[24px]">
+                <p class="s24 textColor font-normal ml-[5px]">Booked movies</p>
+                <div class="flex">
+                    <movieCardTwo/>
+                </div>
+            </div>
+            <div class="space-y-[24px]">
+                <p class="s24 textColor font-normal ml-[5px]">Saved movies</p>
+                <MovieCardOne :movielink=trendingmovie.movie[0].title :movietitle=trendingmovie.movie[0].title />
             </div>
         </div>
     </div>

@@ -1,22 +1,32 @@
 <template>
+    <div class="text-white bg-black">
+        <nav class="h-20 pl-[138px] pt-[50px] space-x-4 flex">
+            <NuxtLink to = "./moviesFeed" class="flex hover:text-[#0089D0]" >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 self-center">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                </svg>
+                <p class="self-center text-2xl font-black">Back</p>
+            </NuxtLink>
+        </nav>
+    </div>
     <div class="h-full bg-black text-white">
-        <p class="movieTitleExpanded self-center">Kingdom of the planet of the apes</p>
+        <p class="movieTitleExpanded self-center">{{ movie }}</p>
         <div class="flex items-center px-[138px] py-12">
             <div class="thumbnail"></div>
             <div class="line ml-12"></div>
             <div class="movieDetails flex flex-col ml-28 space-y-6 items-center">
                 <div class="flex flex-col space-y-6">
 
-                    <p class="movieDirector">Directed by <span class = "directorName">Wes Ball</span></p>
-                    <p class="movieDescription"> In a post-apocalyptic world where intelligent apes have become the dominant species, "Kingdom of the Planet of the Apes" follows the rise of an ape kingdom under Caesar's wise leadership. As the apes establish their society, they face internal power struggles and external threats from a new generation of surviving humans. The film delves into themes of power, identity, and the quest for coexistence amidst conflict. With breathtaking visuals, intense action sequences, and profound storytelling, this installment continues the epic saga, offering a thought-provoking and thrilling cinematic experience in the legendary franchise</p>
-                    <p class="movieGenre">Genre: <span class = "genreName">Sci-fi Action</span></p>
+                    <p class="movieDirector">Directed by <span class = "directorName">{{ data.movie[0].director.name }}</span></p>
+                    <p class="movieDescription">{{ data.movie[0].description }}</p>
+                    <p class="movieGenre">Genre: <span class = "genreName">{{ data.movie[0].genre }}</span></p>
                 </div>
                 <div class="flex justify-between font-medium w-full">
                     <div class="flex  self-start space-x-1.5 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-16">
                             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
                         </svg>
-                        <p class="textColor s">2h 25m</p>
+                        <p class="textColor s">{{ data.movie[0].duration }}</p>
                     </div>
                     <div class="flex items-start space-x-1.5">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-16">
@@ -35,16 +45,16 @@
                     <div class="">
                         <p>Starring</p>
                         <ul class="list-disc list-inside indent-3 textColor">
-                            <li>Owen Teague</li>
-                            <li>Freya Allan</li>
-                            <li>Kevin Durand</li>
-                            <li>Peter Macon</li>
-                            <li>William H. Macy</li>
+                            <li>{{ data.movie[0].movie_stars[0].star.name }}</li>
+                            <li>{{ data.movie[0].movie_stars[1].star.name }}</li>
+                            <li>{{ data.movie[0].movie_stars[2].star.name }}</li>
+                            <li>{{ data.movie[0].movie_stars[3].star.name }}</li>
+                            <li>{{ data.movie[0].movie_stars[4].star.name }}</li>
                         </ul>
                     </div>
                 </div>
                 <div class="w-full">
-                    <p class="font-black">Rate <span class="textColor">4/5</span></p>
+                    <p class="font-black">Rate <span class="textColor">{{rating.rating_aggregate.aggregate.avg.rating}}</span></p>
                     <div class="flex justify-between">
                         <div class="flex">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
@@ -81,8 +91,45 @@
 
 <script setup>
     definePageMeta({
-            layout:"movie"
+            layout:""
         })
+    const query = gql`
+    query MyQuery($_eq: String) {
+  movie(where: {title: {_eq: $_eq}}) {
+    thumbnail
+    title
+    trending
+    id
+    genre
+    featured_image
+    duration
+    director {
+      name
+    }
+    description
+    movie_stars {
+      star {
+        name
+      }
+    }
+  }
+}
+`
+const ratequery = gql`
+query MyQuery {
+  rating_aggregate {
+    aggregate {
+      avg {
+        rating
+      }
+    }
+  }
+}`
+const {movie} = useRoute().params
+
+const { data } = await useAsyncQuery(query, {_eq: movie})
+const {data:rating} = await useAsyncQuery(ratequery)
+
 </script>
 
 <style scoped>

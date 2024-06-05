@@ -2,14 +2,14 @@
     <div class=" flex flex-col scard">
         <div class="scardthumbnail w-full h-5/6"></div>
         <div class="flex justify-between w-full h-1/6 items-center ">
-            <p class="s16 font-normal">Kingdom of the planet of the apes</p>
-            <NuxtLink to="/movies/movieOne"><p class="textColor s16 font-normal underline">See detail</p></NuxtLink>
+            <p class="s16 font-normal">{{movietitle}}</p>
+            <NuxtLink :to=movielink ><p class="textColor s16 font-normal underline">See detail</p></NuxtLink>
         </div>
     </div>
 </template>
 
 <script setup>
-
+const props = defineProps(["movietitle", "movielink"])
 </script>
 
 <style>
