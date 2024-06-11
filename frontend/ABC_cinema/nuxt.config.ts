@@ -11,5 +11,5 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ['nuxtjs.org']
-  }
+  },
 })

@@ -12,7 +12,7 @@
     <div class="h-full bg-black text-white">
         <p class="movieTitleExpanded self-center">{{ movie }}</p>
         <div class="flex items-center px-[138px] py-12">
-            <div class="thumbnail"></div>
+            <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden"><NuxtImg class="h-full bg-cover" :src="data.movie[0].thumbnail"></NuxtImg></div>
             <div class="line ml-12"></div>
             <div class="movieDetails flex flex-col ml-28 space-y-6 items-center">
                 <div class="flex flex-col space-y-6">

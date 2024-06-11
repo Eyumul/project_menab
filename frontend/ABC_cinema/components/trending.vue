@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center px-[138px] py-20">
-            <div class="thumbnail"></div>
+            <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden"><NuxtImg class="h-full bg-cover" :src="moviethumbnail"></NuxtImg></div>
             <div class="line ml-12"></div>
             <div class="movieDetails flex flex-col ml-28 space-y-6 items-center">
                 <div class="flex flex-col space-y-6">
@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-const props = defineProps(["movietitle", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
+const props = defineProps(["movietitle", "moviethumbnail", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
 // var one = ref("")
 // var isone = ref(null)
 // async function starselected(event){

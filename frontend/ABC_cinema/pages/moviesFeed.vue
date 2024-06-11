@@ -18,7 +18,7 @@
         </div>
         <div v-if = "browsetype == 'No categories'">
             <div class="flex flex-wrap w-[100%] pt-[77px] px-10">
-                <div v-for="movie in movies.movie" class="m-5"><MovieCardOne :movielink="movie.title" :movietitle=" movie.title "/></div>            
+                <div v-for="movie in movies.movie" class="m-5"><MovieCardOne :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/></div>            
             </div>
         </div>
         <div v-else-if = "browsetype == 'Genre'">
@@ -27,7 +27,7 @@
                 <div class="flex flex-wrap w-[100%] pb-10 px-10">
                     <div v-for="movie in movies.movie" class="">
                         <div>
-                            <MovieCardOne class="m-5" v-if="movie.genre == genre" :movielink="movie.title" :movietitle=" movie.title "/>
+                            <MovieCardOne class="m-5" v-if="movie.genre == genre" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
                         </div>
                     </div>            
                 </div>
@@ -39,7 +39,7 @@
                 <div class="flex flex-wrap w-[100%] pb-10 px-10">
                     <div v-for="movie in movies.movie" class="">
                         <div>
-                            <MovieCardOne class="m-5" v-if="movie.director.name == director.name" :movielink="movie.title" :movietitle=" movie.title "/>
+                            <MovieCardOne class="m-5" v-if="movie.director.name == director.name" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
                         </div>
                     </div>            
                 </div>
@@ -56,6 +56,7 @@
         movie {
             title
         genre
+        thumbnail
         director {
         name
         }

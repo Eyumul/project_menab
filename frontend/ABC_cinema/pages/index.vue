@@ -11,7 +11,7 @@
         </div>
         <div v-for = "trendings in trendingmovie.movie" >
             <div v-if="trendings.trending">
-                <trending :movietitle="trendings.title" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
+                <trending :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
             </div>
         </div>
 
@@ -32,6 +32,7 @@ const query = gql`
 query myquery {
   movie {
     title
+    thumbnail
     director {
       name
       id
@@ -82,14 +83,6 @@ definePageMeta({
 </script>
 
 <style>
-.thumbnail {
-    height: 734px;
-    width: 828px;
-    background-image: url('/figmaImage/thumbnail1.jpg');
-    background-repeat: no-repeat;
-    background-size:cover;
-    border-radius: 50px;
-}
 .line {
     height: 500px;
     width: 3px;
