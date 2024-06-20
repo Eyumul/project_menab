@@ -12,4 +12,7 @@ export default defineNuxtConfig({
   image: {
     domains: ['nuxtjs.org']
   },
+  plugins: [
+    '~/plugins/auth0.js'
+  ]
 })

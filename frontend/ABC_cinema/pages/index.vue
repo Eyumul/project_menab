@@ -14,20 +14,33 @@
                 <trending :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
             </div>
         </div>
-
-        <div class="flex space-x-8 justify-center pt-16 content end">
-            <img src="/public/figmaImage/dashboard.png"/>
-            <p id="here" class="s32 font-normal">My Dashboard</p>
-        </div>
-        <div class="flex flex-col mx-[138px] py-20 space-y-[125px]">
-            <div class="text-center text-xs text-gray-400">
-                Sign up to see your movies tickets and movies
+        <div v-if="isAuthenticated">
+            <div class="flex space-x-8 justify-center pt-16 content end">
+                <img src="/public/figmaImage/dashboard.png"/>
+                <p id="here" class="s32 font-normal">My Dashboard</p>
+            </div>
+            <div class="flex flex-col mx-[138px] py-20 space-y-[125px]">
+                <div class="text-center text-xs text-gray-400">
+                    Welcome {{ username.name }}!!! to your dashboard.
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import { useAuth0 } from '@auth0/auth0-vue';
+const auth0 = process.client ? useAuth0() : undefined
+const login = () => {
+    auth0?.loginWithRedirect()
+}
+const isAuthenticated = computed(() => {
+  return auth0?.isAuthenticated.value
+})
+const username = computed(() => {
+    return auth0?.user.value
+})
+    
 const query = gql`
 query myquery {
   movie {
@@ -65,21 +78,6 @@ const { data:trendingmovie } = await useAsyncQuery(query)
 definePageMeta({
         layout:"home"
     })
-    // const trendings = []
-    // const test = []
-    // setTimeout(() => {
-        
-    //     for (let i=0; i < 6; i++){
-    //         // if (trendingmovie.movie[i].trending) {
-    //         //     trendings.push(trendingmovie.movie[])
-    //         // }
-    //         // if (true){
-    //         //     trendings.push(i)
-    //         // }
-    //         test.push(trendingmovie.movie[0].trending)
-    //     }
-    // }, 500);
-    
 </script>
 
 <style>

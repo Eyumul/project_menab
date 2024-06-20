@@ -18,14 +18,14 @@
         </div>
         <div v-if = "browsetype == 'No categories'">
             <div class="flex flex-wrap w-[100%] pt-[77px] px-10">
-                <div v-for="movie in movies.movie" class="m-5"><MovieCardOne :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/></div>            
+                <div v-for="movie in movies.movie" :key="movie.title" class="m-5"><MovieCardOne :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/></div>            
             </div>
         </div>
         <div v-else-if = "browsetype == 'Genre'">
-            <div v-for="genre in genres" class="flex flex-col ">
+            <div v-for="genre in genres"  class="flex flex-col ">
                 <h1 class="text-[#0089D0] text-3xl px-5 pt-10">{{genre}}</h1>
                 <div class="flex flex-wrap w-[100%] pb-10 px-10">
-                    <div v-for="movie in movies.movie" class="">
+                    <div v-for="movie in movies.movie" :key="movie.title" class="">
                         <div>
                             <MovieCardOne class="m-5" v-if="movie.genre == genre" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
                         </div>
@@ -34,10 +34,10 @@
             </div>
         </div>
         <div v-else-if = "browsetype == 'Directors'">
-            <div v-for="director in directors.director" class="flex flex-col ">
+            <div v-for="director in directors.director" :key="director.name" class="flex flex-col ">
                 <h1 class="text-[#0089D0] text-3xl px-5 pt-10">{{director.name}}</h1>
                 <div class="flex flex-wrap w-[100%] pb-10 px-10">
-                    <div v-for="movie in movies.movie" class="">
+                    <div v-for="movie in movies.movie" :key="movie.title" class="">
                         <div>
                             <MovieCardOne class="m-5" v-if="movie.director.name == director.name" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
                         </div>

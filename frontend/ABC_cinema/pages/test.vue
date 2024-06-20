@@ -7,12 +7,41 @@
         <h2>Uploaded Image:</h2>
         <img :src="imageUrl" alt="Uploaded Image" />
       </div>
+      
+      <div>
+        <h1>Auth0 Integration with Nuxt 3</h1>
+        <div v-if="!isAuthenticated">
+            <button @click="login">Login</button>
+        </div>
+        <div v-else>
+            <p>Welcome, {{ username }}</p>
+            <NuxtImg :src="username.picture"></NuxtImg>
+            <button @click="logout">Logout</button>
+        </div>
+        </div>
+
     </div>
   </template>
   
   <script setup>
-  import { useFetch } from '@vueuse/core'
-  
+import { useAuth0 } from '@auth0/auth0-vue';
+const auth0 = process.client ? useAuth0() : undefined
+const login = () => {
+    auth0?.loginWithRedirect()
+}
+const logout = () => {
+    auth0?.logout()
+}
+const isAuthenticated = computed(() => {
+  return auth0?.isAuthenticated.value
+})
+const username = computed(() => {
+    return auth0?.user.value
+})
+// console.log(username)
+
+
+
   const file = ref(null)
   const imageUrl = ref('')
   
