@@ -3,12 +3,13 @@ import { createAuth0 } from '@auth0/auth0-vue'
 export default defineNuxtPlugin((nuxtApp) => {
   // const config = useRuntimeConfig()
   const auth0 = createAuth0({
-    domain: "dev-7dv1hf0d0zv281zb.us.auth0.com",
-    clientId: "H07gJ2qsCtzOQ2WYVYqlEzmdwSkYwF33",
+    domain: "<domain name>",
+    clientId: "<your client Id>",
     authorizationParams: {
-      redirect_uri: 'http://localhost:3000'
+      redirect_uri: 'http://localhost:3000',
+      audience: '<your api audience>'
     },
-    // cacheLocation: 'localstorage'
+    cacheLocation: 'localstorage'
   })
 
   if (process.client) {

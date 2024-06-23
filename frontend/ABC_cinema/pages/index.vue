@@ -9,9 +9,9 @@
                 <p class="s24">On cinema</p>
             </div>
         </div>
-        <div v-for = "trendings in trendingmovie.movie" >
+        <div v-for = "trendings in trendingmovie.movie" :key = "trendings.title" >
             <div v-if="trendings.trending">
-                <trending :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
+                <trending :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :bgone="prefix + trendings.featured_images[0].image_one + sufix" :bgtwo="prefix + trendings.featured_images[0].image_two + sufix" :bgthree="prefix + trendings.featured_images[0].image_three + sufix" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
             </div>
         </div>
         <div v-if="isAuthenticated">
@@ -63,6 +63,11 @@ query myquery {
         id
       }
     }
+    featured_images {
+      image_one
+      image_three
+      image_two
+    }
     trending
     ratings_aggregate {
       aggregate {
@@ -75,6 +80,11 @@ query myquery {
 }
 `
 const { data:trendingmovie } = await useAsyncQuery(query)
+const prefix = "url('"
+const sufix = "')"
+// const featuredone = "url('"+ trendingmovie.value.movie[0].featured_images[0].image_one + "')"
+// const featuredtwo = "url('" + trendingmovie.value.movie[0].featured_images[0].image_two + "')"
+// const featuredthree = "url('" + trendingmovie.value.movie[0].featured_images[0].image_three + "')"
 definePageMeta({
         layout:"home"
     })

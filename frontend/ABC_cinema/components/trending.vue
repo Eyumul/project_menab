@@ -1,6 +1,29 @@
 <template>
     <div class="flex items-center px-[138px] py-20">
-            <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden"><NuxtImg class="h-full bg-cover" :src="moviethumbnail"></NuxtImg></div>
+                <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden" id = "slideshow3">
+                    <div class="mt-[250px]">
+                        <ul class="flex justify-between px-8">
+                            <li @click="previous">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </li>
+                            <li @click="next">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </li>
+                        </ul>
+
+                        <!-- <div class="flex gap-x-8 mt-[300px] pb-2 justify-center items-center">
+                            <span class="dot" id="dot1"></span>
+                            <span class="dot" id="dot2"></span>
+                            <span class="dot" id="dot3"></span>
+                            <span class="dot" id="dot4"></span>
+                            <span class="dot" id="dotActive"></span>
+                        </div> -->
+                    </div>
+                </div>
             <div class="line ml-12"></div>
             <div class="movieDetails flex flex-col ml-28 space-y-6 items-center">
                 <div class="flex flex-col space-y-6">
@@ -77,17 +100,40 @@
 </template>
 
 <script setup>
-const props = defineProps(["movietitle", "moviethumbnail", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
-// var one = ref("")
-// var isone = ref(null)
-// async function starselected(event){
-//     one = event.target.id
-//     console.log(one)
-//     console.log(isone)
-//     isone = (one == 'emptystarone')
-// }
+const props = defineProps(["movietitle", "moviethumbnail", "bgone", "bgtwo", "bgthree", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
+let imagenumber = 3
+function previous(){
+    let currentimage = document.getElementById( `slideshow${imagenumber}`)
+    imagenumber--
+    if (imagenumber < 1) {
+        imagenumber = 3
+        }
+    currentimage.id = `slideshow${imagenumber}`
+}
+function next(){
+    let currentimage = document.getElementById(`slideshow${imagenumber}`)
+    imagenumber++
+    if (imagenumber > 3){
+        imagenumber = 1
+    }
+    currentimage.id = `slideshow${imagenumber}`
+}
 </script>
 
 <style scoped>
-
+#slideshow1 {
+    background-image: v-bind(bgone);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+#slideshow2 {
+    background-image: v-bind(bgtwo);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+#slideshow3 {
+    background-image: v-bind(bgthree);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
 </style>

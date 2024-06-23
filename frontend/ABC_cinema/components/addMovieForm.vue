@@ -1,9 +1,5 @@
 <template>
-    <div class="flex flex-col space-y-24 items-center bg-black text-white pt-64 pb-36">
-        <div class="w-[600px] text-xl space-y-12 p-5">
-            <AddDirectorForm />
-            <AddStarForm />
-        </div>
+    <div class="flex flex-col space-y-24 items-center bg-black text-white">
         <form class="text-white w-[600px] text-xl">
             <fieldset  class="flex flex-col space-y-4 bg-black border-2 border-[rgb(0,137,208,0.5)] rounded-[20px] p-5">
                 <legend> Movie </legend>
@@ -30,37 +26,37 @@
                 <div class="flex justify-between items-center">
                     <label>Director:</label>
                     <select v-model="moviedirector" :="moviedirectorProps" class="w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" director.id" v-for="director in directors.director">{{director.name}}</option>
+                        <option :value=" director.id" v-for="director in directors.director" :key="director">{{director.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star one:</label>
                     <select v-model="moviestarone" :="moviestaroneProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" star.id" v-for="star in stars.star">{{star.name}}</option>
+                        <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star two:</label>
                     <select v-model="moviestartwo" :="moviestartwoProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" star.id" v-for="star in stars.star">{{star.name}}</option>
+                        <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star three:</label>
                     <select v-model="moviestarthree" :="moviestarthreeProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" star.id" v-for="star in stars.star">{{star.name}}</option>
+                        <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star four:</label>
                     <select v-model="moviestarfour" :="moviestarfourProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" star.id" v-for="star in stars.star">{{star.name}}</option>
+                        <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star five:</label>
                     <select v-model="moviestarfive" :="moviestarfiveProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
-                        <option :value=" star.id" v-for="star in stars.star">{{star.name}}</option>
+                        <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
@@ -68,8 +64,12 @@
                     <textarea v-model="moviedescription" :="moviedescriptionProps" rows="10" cols="40" class="w-[380px] p-2 border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[10px] text-left rounded-[20px]"></textarea>
                 </div>
                 <div class="flex justify-between items-center">
-                    <label>Image</label>
-                    <input  @change="onFileChange" type="file" class="w-[380px] h-[50px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
+                    <label>Thumbnail</label>
+                    <input @change="onThumbnailChange" type="file" class="w-[380px] h-[50px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
+                </div>
+                <div class="flex justify-between items-center">
+                    <label>Featured images</label>
+                    <input multiple @change="onFeaturedImagesChange" type="file" class="w-[380px] h-[50px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
                 </div>
                 <div class="flex space-x-12 items-center justify-end pr-32">
                     <input v-model="istrending" type="checkbox" class="border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)]" />
@@ -90,14 +90,14 @@
             <p class="text-red-800 text-sm">{{errors.moviestarfour  }}</p>
             <p class="text-red-800 text-sm">{{errors.moviestarfive  }}</p>
             <p class="text-red-800 text-sm">{{errors.moviedescription  }}</p>
-            <p class="text-red-800 text-sm">{{errors.file }}</p>
+            <p class="text-red-800 text-sm">{{errors.thumbnail }}</p>
+            <p class="text-red-800 text-sm">{{errors.featuredImageOne }}</p>
+            <p class="text-red-800 text-sm">{{errors.featuredImageTwo }}</p>
+            <p class="text-red-800 text-sm">{{errors.featuredImageThree }}</p>
         </div>
     </div>
 </template>
 <script setup>
-definePageMeta({
-    layout:"admin"
-})
 
 
 
@@ -105,13 +105,21 @@ import { useForm } from 'vee-validate';
 import { handleError } from 'vue';
 import * as Yup from 'yup';
 import { useFetch } from '@vueuse/core'
-import { thumbnail } from '@cloudinary/url-gen/actions/resize';
   
 const imageUrl = ref('')
+const featuredImageOneUrl = ref('')
+const featuredImageTwoUrl = ref('')
+const featuredImageThreeUrl = ref('')
+const featuredImage = ref(null)
 
-function onFileChange(event) {
-    file.value = event.target.files[0]
-    // console.log(file.value.type.slice(0,5))
+function onThumbnailChange(event) {
+    thumbnail.value = event.target.files[0]
+}
+function onFeaturedImagesChange(event) {
+    featuredImage.value = event.target.files
+    featuredImageOne.value = event.target.files[0]
+    featuredImageTwo.value = event.target.files[1]
+    featuredImageThree.value = event.target.files[2]
 }
     
 function titlerequired(value) {
@@ -173,7 +181,10 @@ const { defineField, handleSubmit, errors } = useForm({
     moviestarfour: starfourrequired,
     moviestarfive: starfiverequired,
     moviedescription: descriptionRequired,
-    file: validimageRequired
+    thumbnail: validimageRequired,
+    featuredImageOne: validimageRequired,
+    featuredImageTwo: validimageRequired,
+    featuredImageThree: validimageRequired
     },
     });
     
@@ -205,7 +216,10 @@ const [moviestarthree, moviestarthreeProps] = defineField('moviestarthree')
 const [moviestarfour, moviestarfourProps] = defineField('moviestarfour')
 const [moviestarfive, moviestarfiveProps] = defineField('moviestarfive')
 const [moviedescription,moviedescriptionProps] = defineField('moviedescription')
-const [file, fileProps] = defineField('file')
+const [thumbnail, thumbnailProps] = defineField('thumbnail')
+const [featuredImageOne, featuredImageOneProps] = defineField('featuredImageOne')
+const [featuredImageTwo, featuredImageTwoProps] = defineField('featuredImageTwo')
+const [featuredImageThree, featuredImageThreeProps] = defineField('featuredImageThree') 
 const istrending = ref(false)
 
 // const strname = ref("")
@@ -228,31 +242,47 @@ mutation MyMutation($movie_id: Int, $star_id: Int) {
   }
 }
 `
-
+const featuredImageinsertion = gql`
+mutation MyMutation($image_one: String, $image_three: String, $image_two: String, $movie_id: Int) {
+  insert_featured_image_one(object: {image_one: $image_one, image_three: $image_three, image_two: $image_two, movie_id: $movie_id}) {
+    image_one
+    image_three
+    image_two
+    movie_id
+  }
+}
+`
 
 const createMovie = handleSubmit(async() => {
       
     const formData = new FormData()
-    formData.append('file', file.value)
-  
+    formData.append('file', thumbnail.value)
+    formData.append('ImageOne', featuredImageOne.value)
+    formData.append('ImageTwo', featuredImageTwo.value)
+    formData.append('ImageThree', featuredImageThree.value)
+    
+    
+    
     const { data, error } = await useFetch('http://localhost:3041/upload', {
       method: 'POST',
       body: formData,
     }).json()
-  
-    //console.log(data)
     if (error.value) {
       console.error('Error uploading file:', error.value)
       return
     }
-  
+    
     imageUrl.value = data.value.url
+    featuredImageOneUrl.value = data.value.urlone
+    featuredImageTwoUrl.value = data.value.urltwo
+    featuredImageThreeUrl.value = data.value.urlthree
     const{ data: movdata }= await movmutate({title: movietitle.value, genre: moviegenre.value, duration: movieduration.value, director_id: moviedirector.value, description: moviedescription.value, thumbnail: imageUrl.value, trending: istrending.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarone.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestartwo.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarthree.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarfour.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarfive.value})
+    await featuredImagemutate({image_one: featuredImageOneUrl.value, image_three: featuredImageThreeUrl.value, image_two: featuredImageTwoUrl.value, movie_id: movdata.insert_movie_one.id})
     movtitle.value = movdata.insert_movie_one.title + " is added as a movie"
     // console.log(movtitle.value)
 });
@@ -260,6 +290,7 @@ const createMovie = handleSubmit(async() => {
 
 const{mutate: movmutate} = useMutation(movinsertion)
 const{mutate: movstrmutate} = useMutation(movstrinsertion)
+const{mutate: featuredImagemutate} = useMutation(featuredImageinsertion)
 </script>
 
 <style>

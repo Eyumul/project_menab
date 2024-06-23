@@ -1,17 +1,37 @@
 <template>
-    <div class="h-screen bg-black text-white flex justify-center">
-        <form class="flex flex-col space-y-10 items-center self-center">
-            <p class="text-2xl underline">Enter admins password</p>
-            <input type="password" class="w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
-            <button class="w-[380px] h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Login</button>
-        </form>
+    <div class="flex flex-col justify-center items-center bg-black text-white text-4xl h-screen space-y-12">
+        <h1 class="text-white text-6xl font-bold">Admin Pannel</h1>
+        <div class="flex space-x-12">
+            <NuxtLink to="/admins/directors">
+                <div class="flex border-2 border-white w-[500px] justify-center rounded-[18px] h-[300px]  hover:text-[#0089D0] hover:border-[#0089D0]">
+                    <p class="content-center">Directors</p>
+                </div>
+            </NuxtLink>
+            <NuxtLink to="/admins/stars">
+                <div class="flex border-2 border-white w-[500px] justify-center rounded-[18px] h-[300px]  hover:text-[#0089D0] hover:border-[#0089D0]">
+                    <p class="content-center">Stars</p>
+                </div>
+            </NuxtLink>
+        </div>
+        <div class="flex space-x-12">
+            <NuxtLink to="/admins/movies">
+                <div class="flex border-2 border-white w-[500px] justify-center rounded-[18px] h-[300px]  hover:text-[#0089D0] hover:border-[#0089D0]">
+                    <p class="content-center">Movies</p>
+                </div>
+            </NuxtLink>
+            <NuxtLink to="/admins/schedules">
+                <div class="flex border-2 border-white w-[500px] justify-center rounded-[18px] h-[300px]   hover:text-[#0089D0] hover:border-[#0089D0]">
+                    <p class="content-center">Schedules</p>
+                </div>
+            </NuxtLink>
+        </div>
     </div>
 </template>
 
 <script setup>
-    definePageMeta({
-            layout:""
-        })
+definePageMeta({
+        layout:""
+    })
 </script>
 
 <style>

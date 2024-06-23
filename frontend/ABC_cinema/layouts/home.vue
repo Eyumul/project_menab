@@ -39,17 +39,15 @@
                     </li>
                 </ul>
 
-                <div class="flex gap-x-8 mt-[300px] pb-2 justify-center items-center">
+                <!-- <div class="flex gap-x-8 mt-[300px] pb-2 justify-center items-center">
                     <span class="dot" id="dot1"></span>
                     <span class="dot" id="dot2"></span>
                     <span class="dot" id="dot3"></span>
                     <span class="dot" id="dot4"></span>
                     <span class="dot" id="dotActive"></span>
-                </div>
+                </div> -->
             </div>
         </header>
-    </div>
-    <div>
         <slot />
     </div>
 </template>
@@ -66,19 +64,16 @@ const isAuthenticated = computed(() => {
 const username = computed(() => {
     return auth0?.user.value
 })
+
+
 let imagenumber = 5
 function previous(){
     let currentimage = document.getElementById( `slideshow${imagenumber}`)
-    let previousdot = document.getElementById("dotActive")
     imagenumber--
     if (imagenumber < 1) {
         imagenumber = 5
         }
-    let currentdot = document.getElementById(`dot${imagenumber}`)
     currentimage.id = `slideshow${imagenumber}`
-    previousdot.id = `dot${imagenumber+1}`
-    currentdot.id = "dotActive"
-    console.log("previous ",previousdot.id, "current ", currentdot.id)
 }
 function next(){
     let currentimage = document.getElementById(`slideshow${imagenumber}`)
@@ -88,7 +83,13 @@ function next(){
     }
     currentimage.id = `slideshow${imagenumber}`
 }
-// setInterval(previous, 4000);
+// let intervalId
+// onMounted(() => {
+//   intervalId = setInterval(previous, 4000)
+// })
+// onBeforeUnmount(() => {
+//   clearInterval(intervalId)
+// })
 
 </script>
 
@@ -102,35 +103,35 @@ light blue: #24B4FF
 #slideshow1 {
     height: 637px;
     width:100%;
-    background-image: url('/figmaImage/slideshow1.jpg');
+    background-image: url('http://localhost:3041/uploads/slideshow1.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
 #slideshow2 {
     height: 637px;
     width:100%;
-    background-image: url('/figmaImage/slideshow2.jpg');
+    background-image: url('http://localhost:3041/uploads/slideshow2.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
 #slideshow3 {
     height: 637px;
     width:100%;
-    background-image: url('/figmaImage/slideshow3.jpg');
+    background-image: url('http://localhost:3041/uploads/slideshow3.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
 #slideshow4 {
     height: 637px;
     width:100%;
-    background-image: url('/figmaImage/slideshow4.jpg');
+    background-image: url('http://localhost:3041/uploads/slideshow4.jpg');
     background-repeat: no-repeat;
     background-size:cover;
 }
 #slideshow5 {
     height: 637px;
     width:100%;
-    background-image: url('/figmaImage/slideshow5.webp');
+    background-image: url('http://localhost:3041/uploads/slideshow5.webp');
     background-repeat: no-repeat;
     background-size:cover;
 }

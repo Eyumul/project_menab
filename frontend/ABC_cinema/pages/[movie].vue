@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-black h-screen">
         <div class="text-white bg-black">
             <nav class="h-20 pl-[138px] pt-[50px] space-x-4 flex">
                 <NuxtLink to = "./moviesFeed" class="flex hover:text-[#0089D0]" >
@@ -13,7 +13,30 @@
         <div class="h-full bg-black text-white">
             <p class="movieTitleExpanded self-center">{{ movie }}</p>
             <div class="flex items-center px-[138px] py-12">
-                <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden"><NuxtImg class="h-full bg-cover" :src="data.movie[0].thumbnail"></NuxtImg></div>
+                <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden" id = "slideshow3">
+                    <div class="mt-[250px]">
+                        <ul class="flex justify-between px-8">
+                            <li @click="previous">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </li>
+                            <li @click="next">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                                </svg>
+                            </li>
+                        </ul>
+
+                        <!-- <div class="flex gap-x-8 mt-[300px] pb-2 justify-center items-center">
+                            <span class="dot" id="dot1"></span>
+                            <span class="dot" id="dot2"></span>
+                            <span class="dot" id="dot3"></span>
+                            <span class="dot" id="dot4"></span>
+                            <span class="dot" id="dotActive"></span>
+                        </div> -->
+                    </div>
+                </div>
                 <div class="line ml-12"></div>
                 <div class="movieDetails flex flex-col ml-28 space-y-6 items-center">
                     <div class="flex flex-col space-y-6">
@@ -103,7 +126,6 @@
     trending
     id
     genre
-    featured_image
     duration
     director {
       name
@@ -113,6 +135,11 @@
       star {
         name
       }
+    }
+    featured_images {
+      image_one
+      image_three
+      image_two
     }
   }
 }
@@ -132,9 +159,45 @@ const {movie} = useRoute().params
 const { data } = await useAsyncQuery(query, {_eq: movie})
 const {data:rating} = await useAsyncQuery(ratequery)
 
+let imagenumber = 3
+const bgone = "url('"+ data.value.movie[0].featured_images[0].image_one + "')"
+const bgtwo = "url('" + data.value.movie[0].featured_images[0].image_two + "')"
+const bgthree = "url('" + data.value.movie[0].featured_images[0].image_three + "')"
+console.log(data.value.movie[0].featured_images[0].image_one)
+function previous(){
+    let currentimage = document.getElementById( `slideshow${imagenumber}`)
+    imagenumber--
+    if (imagenumber < 1) {
+        imagenumber = 3
+        }
+    currentimage.id = `slideshow${imagenumber}`
+}
+function next(){
+    let currentimage = document.getElementById(`slideshow${imagenumber}`)
+    imagenumber++
+    if (imagenumber > 3){
+        imagenumber = 1
+    }
+    currentimage.id = `slideshow${imagenumber}`
+}
 </script>
 
 <style scoped>
+#slideshow1 {
+    background-image: v-bind(bgone);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+#slideshow2 {
+    background-image: v-bind(bgtwo);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+#slideshow3 {
+    background-image: v-bind(bgthree);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
 .movieTitleExpanded {
     width:100%;
     font-size:32px;

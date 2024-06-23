@@ -25,7 +25,7 @@
             </svg>
           </div>
         </div>
-        <div class="flex mt-16 overflow-x-auto p-2" v-if = "searchtext != ''">
+        <div class="flex flex-wrap w-[100%] pt-[77px] px-10" >
           <div v-for="movie in moviematches" :key="movie.title">
             <MovieCardOne class="m-5" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
           </div>
@@ -53,13 +53,20 @@
   
   const searchmovie = () => {
     moviematches.value = []
+    if (searchtext.value == "" || searchtext.value == " "){
+      alert("No movie inserted")
+      return
+    }
     for (let movie of movies.value.movie) {
-      if (movie.title.toUpperCase().includes(searchtext.value.toUpperCase()) && searchtext != "") {
+      if (movie.title.toUpperCase().includes(searchtext.value.toUpperCase())) {
         moviematches.value.push({
           title: movie.title,
           thumbnail: movie.thumbnail
         })
       }
+    }
+    if (moviematches.value.length == 0){
+      alert("No match found")
     }
   }
   </script>

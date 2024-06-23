@@ -22,7 +22,7 @@
             </div>
         </div>
         <div v-else-if = "browsetype == 'Genre'">
-            <div v-for="genre in genres"  class="flex flex-col ">
+            <div v-for="genre in genres"  class="flex flex-col" :key="genre">
                 <h1 class="text-[#0089D0] text-3xl px-5 pt-10">{{genre}}</h1>
                 <div class="flex flex-wrap w-[100%] pb-10 px-10">
                     <div v-for="movie in movies.movie" :key="movie.title" class="">
