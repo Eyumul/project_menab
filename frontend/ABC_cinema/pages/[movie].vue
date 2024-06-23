@@ -14,15 +14,15 @@
             <p class="movieTitleExpanded self-center">{{ movie }}</p>
             <div class="flex items-center px-[138px] py-12">
                 <div class="h-[734px] w-[828px] rounded-[50px] overflow-hidden" id = "slideshow3">
-                    <div class="mt-[250px]">
+                    <div class="mt-[330px]">
                         <ul class="flex justify-between px-8">
                             <li @click="previous">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 cursor-pointer hover:text-[#0089D0]">
                                     <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
                                 </svg>
                             </li>
                             <li @click="next">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 cursor-pointer hover:text-[#0089D0]">
                                     <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
                                 </svg>
                             </li>
@@ -163,7 +163,6 @@ let imagenumber = 3
 const bgone = "url('"+ data.value.movie[0].featured_images[0].image_one + "')"
 const bgtwo = "url('" + data.value.movie[0].featured_images[0].image_two + "')"
 const bgthree = "url('" + data.value.movie[0].featured_images[0].image_three + "')"
-console.log(data.value.movie[0].featured_images[0].image_one)
 function previous(){
     let currentimage = document.getElementById( `slideshow${imagenumber}`)
     imagenumber--
@@ -180,6 +179,14 @@ function next(){
     }
     currentimage.id = `slideshow${imagenumber}`
 }
+// auto slide every 4 second
+let intervalId
+onMounted(() => {
+  intervalId = setInterval(next, 4000)
+})
+onBeforeUnmount(() => {
+  clearInterval(intervalId)
+})
 </script>
 
 <style scoped>

@@ -66,7 +66,7 @@
       }
     }
     if (moviematches.value.length == 0){
-      alert("No match found")
+      alert('Movie "' + searchtext.value + '" Not found')
     }
   }
   </script>

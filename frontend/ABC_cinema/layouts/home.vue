@@ -4,17 +4,17 @@
             <nav class="flex h-20 justify-between trans fixed w-full">
                 <div class="px-3 self-center "><NuxtLink to = "/"><p class="logo">ABC_Cinema</p></NuxtLink></div>
                 <ul class = "flex gap-x-12 px-9 items-center ">
-                    <li><NuxtLink to = "/search">
+                    <li class="cursor-pointer hover:text-[#0089D0]"><NuxtLink to = "/search">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                     </NuxtLink></li>
-                    <li v-if="!isAuthenticated"><span @click="login">Dashboard</span></li>
-                    <li v-else><NuxtLink to = "/#here">Dashboard</NuxtLink></li>
-                    <li><NuxtLink to = "/moviesFeed">Movies</NuxtLink></li>
-                    <li><NuxtLink to = "/schedule">Schedule</NuxtLink></li>
+                    <li class="cursor-pointer hover:text-[#0089D0]" v-if="!isAuthenticated"><span @click="login" class="cursor-pointer hover:text-[#0089D0]">Dashboard</span></li>
+                    <li class="cursor-pointer hover:text-[#0089D0]" v-else><NuxtLink to = "/#here">Dashboard</NuxtLink></li>
+                    <li class="cursor-pointer hover:text-[#0089D0]"><NuxtLink to = "/moviesFeed">Movies</NuxtLink></li>
+                    <li class="cursor-pointer hover:text-[#0089D0]"><NuxtLink to = "/schedule">Schedule</NuxtLink></li>
                     <div v-if="!isAuthenticated">
-                        <li @click = "login">
+                        <li class="cursor-pointer hover:text-[#0089D0]" @click = "login">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7">
                                 <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
                             </svg>
@@ -28,12 +28,12 @@
             <div class="mt-[250px]">
                 <ul class="flex justify-between px-8">
                     <li @click="previous">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 cursor-pointer hover:text-[#0089D0]">
                             <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
                         </svg>
                     </li>
                     <li @click="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 cursor-pointer hover:text-[#0089D0]">
                             <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
                         </svg>
                     </li>
@@ -83,17 +83,18 @@ function next(){
     }
     currentimage.id = `slideshow${imagenumber}`
 }
-// let intervalId
-// onMounted(() => {
-//   intervalId = setInterval(previous, 4000)
-// })
-// onBeforeUnmount(() => {
-//   clearInterval(intervalId)
-// })
+// auto slide every 4 second
+let intervalId
+onMounted(() => {
+  intervalId = setInterval(next, 4000)
+})
+onBeforeUnmount(() => {
+  clearInterval(intervalId)
+})
 
 </script>
 
-<style>
+<style scoped>
 /*
 
 dark blue: #0089D0
@@ -145,10 +146,6 @@ light blue: #24B4FF
     background: -webkit-linear-gradient(right, white, #0089D0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-li:hover {
-    color:#0089D0;
-    cursor: pointer;
 }
 .dot {
     height: 10px;

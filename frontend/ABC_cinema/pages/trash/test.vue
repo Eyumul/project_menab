@@ -27,10 +27,70 @@
         </div>
         </div>
 
+
+
+
+
+
+
+
+        <div>
+          <ul>
+            <li v-for="(item, index) in visibleItems" :key="index">{{ item }}</li>
+          </ul>
+          <button v-if="visibleItems.length < items.length" @click="loadMore">Load More</button>
+        </div>
     </div>
   </template>
   
   <script setup>
+import { ref, onMounted } from 'vue';
+
+// Define the state variables
+const items = ref([]);         // Full list of items
+const visibleItems = ref([]);  // Items currently displayed
+const itemsToShow = ref(3);    // Number of items to show initially and each time load more is clicked
+
+// Fetch items from an API or any data source
+const fetchItems = async () => {
+  // Replace with your actual data fetching logic
+  return ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6', 'Item 7', 'Item 8', 'Item 9'];
+};
+
+// Load more items
+const loadMore = () => {
+  const newLength = visibleItems.value.length + itemsToShow.value;
+  visibleItems.value = items.value.slice(0, newLength);
+};
+
+// Fetch the items when the component is mounted
+onMounted(async () => {
+  items.value = await fetchItems();
+  visibleItems.value = items.value.slice(0, itemsToShow.value);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 import { useFetch } from '@vueuse/core'
   const thumnail = ref(null)
