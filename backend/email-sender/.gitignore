@@ -1,0 +1,2 @@
+# ignore main.go file that sends email to the signed up users
+.env

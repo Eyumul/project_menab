@@ -35,19 +35,20 @@
 
 
 
-
-
-
+        
+        
+        
         <div>
           <ul>
             <li v-for="(item, index) in visibleItems" :key="index">{{ item }}</li>
           </ul>
           <button v-if="visibleItems.length < items.length" @click="loadMore">Load More</button>
         </div>
-    </div>
-  </template>
+      </div>
+    </template>
   
   <script setup>
+  import { useAuth0 } from '@auth0/auth0-vue';
 import { ref, onMounted } from 'vue';
 const time = ref("")
 
@@ -168,7 +169,6 @@ import { useFetch } from '@vueuse/core'
 
 
 
-  import { useAuth0 } from '@auth0/auth0-vue';
   const auth0 = process.client ? useAuth0() : undefined
   const login = () => {
       auth0?.loginWithRedirect()
@@ -178,13 +178,14 @@ import { useFetch } from '@vueuse/core'
   }
   const token = ref(null)
   token.value = auth0?.getAccessTokenSilently()
-  console.log(token.value)
+ console.log(auth0?.user.value)
+ console.log(auth0?.getAccessTokenSilently())
+
   const isAuthenticated = computed(() => {
     return auth0?.isAuthenticated.value
   })
   const username = computed(() => {
       return auth0?.user.value
   })
-  console.log(username)
   </script>
   
