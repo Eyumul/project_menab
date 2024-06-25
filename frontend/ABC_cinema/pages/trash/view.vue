@@ -8,7 +8,7 @@
 
 <script setup>
     definePageMeta({
-            layout:"admin"
+            layout:""
         })
     const moviequery = gql`
     query myquery {

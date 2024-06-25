@@ -7,7 +7,7 @@
                     <div @click="createStar" class="cursor-pointer content-center w-[80px] h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
                 </form>
                 <p class="text-red-800 text-sm">{{ errors.starname  }}</p>
-                <p class="text-sm text-gray-500">{{ strname }}</p>
+                <p class="text-sm text-green-500">{{ strname }}</p>
         </div>
     </div>
 </template>

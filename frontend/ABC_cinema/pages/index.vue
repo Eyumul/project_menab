@@ -53,10 +53,6 @@ query myquery {
     description
     genre
     duration
-    schedules {
-      showtime
-      id
-    }
     movie_stars {
       star {
         name

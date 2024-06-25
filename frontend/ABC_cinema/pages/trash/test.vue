@@ -15,6 +15,10 @@
         <!-- <img :src="imageUrl" alt="Uploaded Image" /> -->
       </div>
       
+      <input v-model="time" type="time"/>
+      <input type="number" min="1" max="3" />
+      {{ time }}
+
       <div>
         <h1>Auth0 Integration with Nuxt 3</h1>
         <div v-if="!isAuthenticated">
@@ -45,6 +49,7 @@
   
   <script setup>
 import { ref, onMounted } from 'vue';
+const time = ref("")
 
 // Define the state variables
 const items = ref([]);         // Full list of items

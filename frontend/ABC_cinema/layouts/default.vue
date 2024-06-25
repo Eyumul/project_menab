@@ -21,7 +21,9 @@
                         </li>
                     </div>
                     <div v-else>
-                        <NuxtImg :src="username.picture" class="size-8 rounded-[100%]"></NuxtImg>
+                        <NuxtLink to="/profilepage">
+                            <NuxtImg :src="username.picture" class="size-8 rounded-[100%]"></NuxtImg>
+                        </NuxtLink>
                     </div>
                 </ul>
             </nav>

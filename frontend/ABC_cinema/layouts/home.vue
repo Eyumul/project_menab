@@ -2,7 +2,7 @@
     <div class="flex flex-col content-center text-white" id="slideshow5">
         <header class="h-full flex flex-col justify-between">
             <nav class="flex h-20 justify-between trans fixed w-full">
-                <div class="px-3 self-center "><NuxtLink to = "/"><p class="logo">ABC_Cinema</p></NuxtLink></div>
+                <div class="px-3 self-center "><NuxtLink to = "./"><p class="logo">ABC_Cinema</p></NuxtLink></div>
                 <ul class = "flex gap-x-12 px-9 items-center ">
                     <li class="cursor-pointer hover:text-[#0089D0]"><NuxtLink to = "/search">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-5">
@@ -21,7 +21,9 @@
                         </li>
                     </div>
                     <div v-else>
-                        <NuxtImg :src="username.picture" class="size-8 rounded-[100%]"></NuxtImg>
+                        <NuxtLink to="/profilepage">
+                            <NuxtImg :src="username.picture" class="size-8 rounded-[100%]"></NuxtImg>
+                        </NuxtLink>
                     </div>
                 </ul>
             </nav>

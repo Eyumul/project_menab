@@ -29,14 +29,14 @@
         </div>
         <div v-else-if = "browsetype == 'Genre'">
             <div v-for="genre in genres"  class="flex flex-col" :key="genre">
-                <h1 class="text-[#0089D0] text-3xl px-16 pt-10">{{genre}}</h1>
-                <div class="flex flex-wrap w-[100%] pb-10 px-24">
-                    <div v-for="movie in movies.movie" :key="movie.title" class="w-full">
-                        <div>
+                <h1 class="text-[#0089D0] text-3xl px-16 pt-14 underline">{{genre}}</h1>
+                <div class="flex flex-wrap w-[100%] pb-10 px-10">
+                    <div v-for="movie in movies.movie" :key="movie.title">
+                        
                             <MovieCardOne class="m-5" v-if="movie.genre == genre" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
-                            <div v-if="movie.genre == genre" class="w-full bg-gray-700 h-[1px]"></div>
-                        </div>
+                        
                     </div>            
+                    <div  class="w-full bg-gray-700 h-[1px]"></div>
                 </div>
             </div>
         </div>
@@ -54,14 +54,12 @@
 
             <div v-for="director in directormatches" :key="director.name" class="flex flex-col ">
                 <div v-if="director.movies.length != 0">
-                    <h1 class="text-[#0089D0] text-3xl px-16 pt-10">{{director.name}}</h1>
-                    <div class="flex flex-wrap w-[100%] pb-10 px-24">
-                        <div v-for="movie in movies.movie" :key="movie.title" class="w-full">
-                            <div class="w-full">
+                    <h1 class="text-[#0089D0] text-3xl px-16 pt-14 underline">{{director.name}}</h1>
+                    <div class="flex flex-wrap w-[100%] pb-10 px-10">
+                        <div v-for="movie in movies.movie" :key="movie.title">
                                 <MovieCardOne class="m-5" v-if="movie.director.name == director.name" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
-                                <div v-if="movie.director.name == director.name" class="w-full bg-gray-700 h-[1px]"></div>
-                            </div>
                         </div>            
+                        <div class="w-full bg-gray-700 h-[1px]"></div>
                     </div>
                 </div>
             </div>
@@ -69,14 +67,12 @@
             <div v-if="searchtext == ''">
                 <div v-for="director in directors.director" :key="director.name" class="flex flex-col ">
                     <div v-if="director.movies.length != 0">
-                        <h1 class="text-[#0089D0] text-3xl px-16 pt-10">{{director.name}}</h1>
-                        <div class="flex flex-wrap w-[100%] pb-10 px-24">
-                            <div v-for="movie in movies.movie" :key="movie.title" class="w-full">
-                                <div class="w-full">
+                        <h1 class="text-[#0089D0] text-3xl px-16 pt-14 underline">{{director.name}}</h1>
+                        <div class="flex flex-wrap w-[100%] pb-10 px-10">
+                            <div v-for="movie in movies.movie" :key="movie.title">
                                     <MovieCardOne class="m-5" v-if="movie.director.name == director.name" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
-                                    <div v-if="movie.director.name == director.name" class="w-full bg-gray-700 h-[1px]"></div>
-                                </div>
                             </div>            
+                            <div  class="w-full bg-gray-700 h-[1px]"></div>
                         </div>
                     </div>
                 </div>
@@ -157,6 +153,9 @@
     const avaliablegenres = async () => {
         const genrelist = []
         for(const movie of movies.value.movie){
+            if (genrelist.includes(movie.genre)){
+                continue
+            }
             genrelist.push(movie.genre)
         }
         return genrelist;

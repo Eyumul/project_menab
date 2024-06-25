@@ -21,7 +21,14 @@
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Duration:</label>
-                    <input v-model="movieduration" :="moviedurationProps" type="text" class="w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
+                    <div class="w-[380px] flex justify-around">
+                        <div>
+                            <input v-model="hours" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[10px] mr-4" type="number" min="1" max="4"/><label>H</label>
+                        </div>
+                        <div>
+                            <input v-model="minutes" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[10px] mr-4" type="number" min="00" max="59" /><label>M</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Director:</label>
@@ -79,7 +86,7 @@
             </fieldset>
         </form>
         <div>
-            <p class="text-sm text-gray-500">{{ movtitle }}</p>
+            <p class="text-sm text-green-500">{{ movtitle }}</p>
             <p class="text-red-800 text-sm">{{errors.movietitle  }}</p>
             <p class="text-red-800 text-sm">{{errors.moviegenre  }}</p>
             <p class="text-red-800 text-sm">{{errors.movieduration  }}</p>
@@ -128,9 +135,6 @@ function titlerequired(value) {
 function genrerequired(value) {
     return value ? true : 'Genre is required;  ';
 }
-function durationrequired(value) {
-    return value ? true : 'Duration is required;  ';
-}
 function directorrequired(value) {
   return value ? true : 'Director is required;  ';
 }
@@ -173,7 +177,6 @@ const { defineField, handleSubmit, errors } = useForm({
   validationSchema: {
     movietitle: titlerequired,
     moviegenre: genrerequired,
-    movieduration: durationrequired,
     moviedirector: directorrequired,
     moviestarone: staronerequired,
     moviestartwo: startworequired,
@@ -208,7 +211,6 @@ const { data:stars } = await useAsyncQuery(strquery)
 
 const [movietitle, movietitleProps] = defineField('movietitle')
 const [moviegenre, moviegenreProps] = defineField('moviegenre')
-const [movieduration, moviedurationProps] = defineField('movieduration')
 const [moviedirector, moviedirectorProps] = defineField('moviedirector')
 const [moviestarone, moviestaroneProps] = defineField('moviestarone')
 const [moviestartwo, moviestartwoProps] = defineField('moviestartwo')
@@ -221,8 +223,12 @@ const [featuredImageOne, featuredImageOneProps] = defineField('featuredImageOne'
 const [featuredImageTwo, featuredImageTwoProps] = defineField('featuredImageTwo')
 const [featuredImageThree, featuredImageThreeProps] = defineField('featuredImageThree') 
 const istrending = ref(false)
+const hours = ref(1)
+const minutes = ref(0)
+if (minutes.value < 10){
+    minutes.value = "0" + minutes.value
+}
 
-// const strname = ref("")
 const movtitle = ref("")
 
 
@@ -255,6 +261,9 @@ mutation MyMutation($image_one: String, $image_three: String, $image_two: String
 
 const createMovie = handleSubmit(async() => {
       
+    if (minutes.value < 10){
+        minutes.value = "0" + minutes.value
+    }
     const formData = new FormData()
     formData.append('file', thumbnail.value)
     formData.append('ImageOne', featuredImageOne.value)
@@ -276,7 +285,7 @@ const createMovie = handleSubmit(async() => {
     featuredImageOneUrl.value = data.value.urlone
     featuredImageTwoUrl.value = data.value.urltwo
     featuredImageThreeUrl.value = data.value.urlthree
-    const{ data: movdata }= await movmutate({title: movietitle.value, genre: moviegenre.value, duration: movieduration.value, director_id: moviedirector.value, description: moviedescription.value, thumbnail: imageUrl.value, trending: istrending.value})
+    const{ data: movdata }= await movmutate({title: movietitle.value, genre: moviegenre.value, duration: hours.value+"H "+minutes.value+"M", director_id: moviedirector.value, description: moviedescription.value, thumbnail: imageUrl.value, trending: istrending.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarone.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestartwo.value})
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarthree.value})
@@ -284,7 +293,6 @@ const createMovie = handleSubmit(async() => {
     await movstrmutate({movie_id: movdata.insert_movie_one.id, star_id: moviestarfive.value})
     await featuredImagemutate({image_one: featuredImageOneUrl.value, image_three: featuredImageThreeUrl.value, image_two: featuredImageTwoUrl.value, movie_id: movdata.insert_movie_one.id})
     movtitle.value = movdata.insert_movie_one.title + " is added as a movie"
-    // console.log(movtitle.value)
 });
 
 
