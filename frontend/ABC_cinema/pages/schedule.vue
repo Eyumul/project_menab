@@ -1,48 +1,50 @@
 <template>
-    <div class="bg-black text-white">
-        <div class="pt-[130px]">
-            <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(today) + " (Today's)" }}</h1>
-            <div v-for="schedule in schedules.schedule" :key="schedule">
-                <div v-if="schedule.date == today" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
-                    <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
-                    <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
-                    <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+    <div class="bg-black h-screen">
+        <div class="bg-black text-white">
+            <div class="pt-[130px]">
+                <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(today) + " (Today's)" }}</h1>
+                <div v-for="schedule in schedules.schedule" :key="schedule">
+                    <div v-if="schedule.date == today" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
+                        <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
+                        <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
+                        <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+                    </div>
                 </div>
-            </div>
-            <div v-if="istodayempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
-        </div>     
-        <div class="w-full bg-gray-700 h-[1px]"></div>
-        <div class="pt-[130px]">
-            <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(tomorrow) + " (Tomorrow's)" }}</h1>
-            <div v-for="schedule in schedules.schedule" :key="schedule">
-                <div v-if="schedule.date == tomorrow" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
-                    <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
-                    <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
-                    <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+                <div v-if="istodayempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
+            </div>     
+            <div class="w-full bg-gray-700 h-[1px]"></div>
+            <div class="pt-[130px]">
+                <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(tomorrow) + " (Tomorrow's)" }}</h1>
+                <div v-for="schedule in schedules.schedule" :key="schedule">
+                    <div v-if="schedule.date == tomorrow" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
+                        <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
+                        <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
+                        <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+                    </div>
                 </div>
+                <div v-if="istomorrowempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
             </div>
-            <div v-if="istomorrowempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
-        </div>
-        <div class="w-full bg-gray-700 h-[1px]"></div>
-        <div class="pt-[130px]">
-            <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(dayAfterTomorrow) + " (Day after tomorrow's)" }}</h1>
-            <div v-for="schedule in schedules.schedule" :key="schedule">
-                <div v-if="schedule.date == dayAfterTomorrow" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
-                    <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
-                    <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
-                    <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+            <div class="w-full bg-gray-700 h-[1px]"></div>
+            <div class="pt-[130px]">
+                <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ formatDate(dayAfterTomorrow) + " (Day after tomorrow's)" }}</h1>
+                <div v-for="schedule in schedules.schedule" :key="schedule">
+                    <div v-if="schedule.date == dayAfterTomorrow" class="flex justify-around my-12 mx-36 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
+                        <h2 class="self-center text-3xl w-[150px] text-[#0089D0]">{{ convertTo12HourFormat(schedule.time) }}</h2>
+                        <NuxtImg :src="schedule.movie.thumbnail" class="w-[400px] h-[300px] rounded-[12px]"/>
+                        <h3 class="self-center w-[400px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="schedule.movie.title">{{ schedule.movie.title }}</NuxtLink></h3>
+                    </div>
                 </div>
+                <div v-if="isdayafterempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
             </div>
-            <div v-if="isdayafterempty()" class="text-gray-500 font-black text-2xl text-center m-12">No Movie on this day </div>
-        </div>
-        <div class="w-full bg-gray-700 h-[1px]"></div>
-        <div class="pt-[130px] pb-12" v-if="!commingSoon.length == 0">
-            <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ "Comming Soon" }}</h1>
-            <div class="flex flex-wrap ml-32">
-                <div v-for="movie in commingSoon" :key="movie">
-                    <div class="my-12 mx-2 p-4">
-                        <NuxtImg class="w-[380px] h-[290px] rounded-t-[20px]" :src="movie.thumbnail"/>
-                        <h1 class="text-xl text-[#24B4FF] font-black my-2"><NuxtLink :to="movie.title">{{ movie.title }}</NuxtLink></h1>
+            <div class="w-full bg-gray-700 h-[1px]"></div>
+            <div class="pt-[130px] pb-12" v-if="!commingSoon.length == 0">
+                <h1 class="text-4xl font-black text-[#90D9FF] text-center underline">{{ "Comming Soon" }}</h1>
+                <div class="flex flex-wrap ml-32">
+                    <div v-for="movie in commingSoon" :key="movie">
+                        <div class="my-12 mx-2 p-4">
+                            <NuxtImg class="w-[380px] h-[290px] rounded-t-[20px]" :src="movie.thumbnail"/>
+                            <h1 class="text-xl text-[#24B4FF] font-black my-2"><NuxtLink :to="movie.title">{{ movie.title }}</NuxtLink></h1>
+                        </div>
                     </div>
                 </div>
             </div>

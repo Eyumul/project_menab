@@ -22,7 +22,7 @@
                     </div>
                     <div v-else>
                         <NuxtLink to="/profilepage">
-                            <NuxtImg :src="username.picture" class="size-8 rounded-[100%]"></NuxtImg>
+                            <NuxtImg :src="username.picture" class="align-text-top size-8 text-sm text-center rounded-[100%]"></NuxtImg>
                         </NuxtLink>
                     </div>
                 </ul>

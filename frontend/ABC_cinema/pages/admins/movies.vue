@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-black"> 
+    <div class="h-screen bg-black"> 
         <div class="text-white">
             <nav class=" pl-[138px] pt-[50px] space-x-4 flex justify-between">
                 <NuxtLink to = "/admins" class="flex hover:text-[#0089D0]" >
@@ -11,7 +11,7 @@
                 <p class="text-4xl content-center pr-[800px]">Edit Movies</p>
             </nav>
         </div>
-        <div class="flex flex-col text-xl space-y-12 py-24 w-full items-center">
+        <div class="flex flex-col text-xl space-y-12 py-24 w-full bg-black items-center">
             <AddMovieForm class="w-[600px]"/>
         </div>
     </div>

@@ -1,9 +1,10 @@
 <template>
-    <div>
-      <div class="flex flex-col pt-[100px] h-screen bg-black text-white">
+    <div class="h-screen bg-black">
+      <div class="flex flex-col py-[100px] bg-black text-white">
         <div class="flex justify-center space-x-4">
           <input
             v-model="searchtext"
+            @keyup.enter="searchmovie"
             type="text"
             placeholder="Search"
             class="w-[300px] h-[30px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]"

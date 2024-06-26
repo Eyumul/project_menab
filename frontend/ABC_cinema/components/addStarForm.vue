@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="space-y-3">
-                <form class="flex items-center w-full justify-between">
+                <div class="flex items-center w-full justify-between">
                     <label>Insert movie star: </label>
-                    <input v-model="starname" :="starnameProps" type="text" class="w-[280px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
+                    <input v-model="starname" :="starnameProps" @keyup.enter="createStar" type="text" class="w-[280px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
                     <div @click="createStar" class="cursor-pointer content-center w-[80px] h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
-                </form>
+                </div>
                 <p class="text-red-800 text-sm">{{ errors.starname  }}</p>
                 <p class="text-sm text-green-500">{{ strname }}</p>
         </div>
@@ -41,6 +41,10 @@ mutation MyMutation ($name: String) {
 const createStar = handleSubmit(async () => {
     const{ data }= await strmutate({name: starname.value})
     strname.value = data.insert_star_one.name + " is added as a star"
+    setTimeout(function(){
+      window.location.reload();
+    }, 5000);
+    // location.reload()
 });
 
 //declare consts

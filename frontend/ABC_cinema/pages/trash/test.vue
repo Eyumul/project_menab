@@ -44,10 +44,102 @@
           </ul>
           <button v-if="visibleItems.length < items.length" @click="loadMore">Load More</button>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div>
+    <input v-model="oldDirectorName" placeholder="Enter current director name" />
+    <input v-model="newDirectorName" placeholder="Enter new director name" />
+    <button @click="handleUpdateDirector">Update Director</button>
+  </div>
+
       </div>
     </template>
   
   <script setup>
+
+// Define the mutation
+const updateDirectorMutation = gql`
+  mutation MyMutation($_eq: String!, $name: String!) {
+    update_director(where: { name: { _eq: $_eq } }, _set: { name: $name }) {
+      returning {
+        name
+      }
+    }
+  }
+`
+const { mutate: updateDirector } = useMutation(updateDirectorMutation)
+
+// Reactive variables for the director names
+const oldDirectorName = ref("")
+const newDirectorName = ref("")
+
+// Setup the mutation hook
+
+// Function to update a director's name
+async function handleUpdateDirector() {
+  try {
+    const { data } = await updateDirector({ _eq: oldDirectorName.value, name: newDirectorName.value })
+    console.log('Updated director:', data.update_director.returning[0].name)
+  } catch (error) {
+    console.error('Error updating director:', error)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   import { useAuth0 } from '@auth0/auth0-vue';
 import { ref, onMounted } from 'vue';
 const time = ref("")

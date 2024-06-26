@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="space-y-3">
-                <form class="flex items-center w-full justify-between">
+                <div class="flex items-center w-full justify-between">
                     <label>Insert a director: </label>
-                    <input v-model="directorname" :="directornameProps" type="text" class="w-[280px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
+                    <input v-model="directorname" :="directornameProps" @keyup.enter="createDirector" type="text" class="w-[280px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
                     <div @click="createDirector" class="cursor-pointer content-center w-[80px] h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
-                </form>
+                </div>
                 <p class="text-red-800 text-sm">{{ errors.directorname  }}</p>
                 <p class="text-sm text-green-500">{{ dirname }}</p>
         </div>
@@ -41,6 +41,10 @@ mutation MyMutation ($name: String) {
 const createDirector = handleSubmit(async () => {
     const{ data }= await dirmutate({name: directorname.value})
     dirname.value = data.insert_director_one.name + " is added as a movie director"
+    setTimeout(function(){
+      window.location.reload();
+    }, 5000);
+    // location.reload()
 });
 
 //declare consts
