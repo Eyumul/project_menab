@@ -64,43 +64,178 @@
                         </ul>
                     </div>
                 </div>
-                <div class="w-full">
-                    <p class="font-black">Rate <span class="textColor">{{rate}}</span></p>
-                    <div class="flex justify-between">
-                        <div class="flex">
-                            <svg id ="emptystarone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                            </svg>
-                            <svg id ="emptystartwo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                            </svg>
-                            <svg id ="emptystarthree" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                            </svg>
-                            <svg id ="emptystarfour" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                            </svg>
-                            <svg id ="emptystarfive" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                            </svg>
+                <p v-if="rate" class="w-full font-black text-[14px]">ABC_cinema Rating <span class="textColor ml-4 text-[24px]">{{rate.toFixed(1)}}/5</span></p>
+                <div v-if="auth0?.isAuthenticated.value" class="w-full">
+                    <div v-if="role == 'user'" class="flex justify-between mt-4">
+                        <div  class="flex">
+                            <label>Your rating: </label><input v-model="rating" @change="rateMovie" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[18px] text-center rounded-[10px] ml-4" type="number" min="1" max="5"/>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:text-[#0089D0]">
+                        <svg v-if="!isSaved" @click="save" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer hover:text-[#0089D0]">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                        </svg>
+                        <svg v-else-if="isSaved" @click="remove" xmlns="http://www.w3.org/2000/svg" fill="#0089D0" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer text-[#0089D0]">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
                         </svg>
                     </div>
                 </div>
-                <div class="flex space-x-7 button justify-center items-center">
+                <div v-if="auth0?.isAuthenticated.value && role == 'user'"  class="flex space-x-7 hover:bg-[#016699] cursor-pointer button justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 text-black">
                         <path fill-rule="evenodd" d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" />
                     </svg>
-                    <div  class="text-2xl font-black">Buy Ticket</div>
+                    <div class="text-2xl font-black">Buy Ticket</div>
                 </div>
+                <p v-if="auth0?.isAuthenticated.value"   class="hidden">{{ movieId = movieid }}</p>
             </div>
         </div>
 </template>
 
 <script setup>
-const props = defineProps(["movietitle", "moviethumbnail", "bgone", "bgtwo", "bgthree", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
+import { useAuth0 } from '@auth0/auth0-vue';
+import {jwtDecode} from 'jwt-decode';
+const auth0 = process.client ? useAuth0() : undefined
+const hasuraId = ref('')
+const role = ref('')
+if(process.client){
+    const tokentext = localStorage.getItem('hasura-token')
+        if (tokentext) {
+        const decodedToken = jwtDecode(tokentext);
+        role.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+        hasuraId.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-user-id']
+        }
+}
+    
+        const movieId = ref('')
+        const saveinsertion = gql`
+        mutation MyMutation($movie_id: Int!, $user_id: Int!) {
+          insert_saved_movie_one(object: {movie_id: $movie_id, user_id: $user_id}) {
+            movie {
+              title
+            }
+            profile {
+              name
+            }
+          }
+        }`
+        const{mutate: savemutate} = useMutation(saveinsertion)
+        const deleteinsertion = gql`
+        mutation MyMutation($_eq: Int) {
+          delete_saved_movie(where: {movie_id: {_eq: $_eq}}) {
+            returning {
+              movie_id
+              movie {
+                    title
+                }
+            }
+          }
+        }
+        `
+        const { mutate: removemutate } = useMutation(deleteinsertion)
+        
+            const id = ref(null)
+            const isSaved = ref(null)
+            let movies = []
+            setTimeout( async () => {
+                if (process.client && auth0?.isAuthenticated.value){
+                    const profilequery = gql`
+                        query MyQuery {
+                            profile {
+                                id
+                                saved_movies {
+                                    movie_id
+                                }
+                            }
+                        }`
+                    const {data, error} = await useAsyncQuery(profilequery)
+                    if (error.value && role.value == 'user') location.reload()
+                    id.value = data.value.profile[0].id
+                    
+                    for (const movie of data.value.profile[0].saved_movies){
+                        movies.push(movie.movie_id)
+                    }
+                    isSaved.value = movies.includes(movieId.value)
+                }}, 1000);
+                
+        async function save(){
+            // Saved_movie insertion code goes here
+            const{ data }= await savemutate({movie_id: movieId.value,user_id: id.value})
+            console.log("You Bookmarked a movie: ",data.insert_saved_movie_one.movie.title)
+            isSaved.value = true
+        }
+        async function remove(){
+            // Saved_movie deletion code goes here
+            const { data } = await removemutate({ _eq: movieId.value })
+            console.log("You unsaved movie: ",data.delete_saved_movie.returning[0].movie.title)
+            isSaved.value = false
+        }
+                
+        const rateinsertion = gql`
+        mutation MyMutation($movie_id: Int!, $rating: Int!, $user_id: Int!) {
+          insert_rating_one(object: {movie_id: $movie_id, rating: $rating, user_id: $user_id}) {
+            movie_id
+            rating
+            user_id
+            movie {
+                title
+            }
+          }
+        }
+        `
+        const{mutate: ratemutate} = useMutation(rateinsertion)
+        const updaterating = gql`
+        mutation MyMutation($rating: Int!, $_eq: Int!) {
+            update_rating(where: {movie_id: {_eq: $_eq}}, _set: {rating: $rating}) {
+                returning {
+                movie {
+                    title
+                }
+                rating
+                }
+            }
+        }`
+        const { mutate: updateratemutate } = useMutation(updaterating)
+        const rating = ref(null)
+        const currentRate = ref(null)
+        setTimeout( async () => {
+            if (process.client && auth0?.isAuthenticated.value){
+            const RATING_QUERY = gql`
+                query MyQuery{
+                    rating {
+                        rating
+                        movie_id
+                    }
+                }`
+            const { data, error} = await useAsyncQuery(RATING_QUERY);
+            if (error.value) location.reload()
+            for (const rate of data.value.rating){
+                if(rate.movie_id == movieId.value) {
+                    rating.value = rate.rating
+                    currentRate.value = rate.rating
+                }
+            }
+            }}, 1000);
+        async function rateMovie (){
+            if(currentRate.value == null){
+                // rating insertion goes here
+                const{ data }= await ratemutate({movie_id: movieId.value,user_id: id.value, rating: rating.value})
+                console.log("(New) You rated '",data.insert_rating_one.movie.title,"': ",data.insert_rating_one.rating,"/5")
+                currentRate.value = rating.value
+            }else{
+                // update insertion goes here
+                const { data } = await updateratemutate({ _eq: movieId.value, rating: rating.value })
+                console.log("You rated '",data.update_rating.returning[0].movie.title,"': ",data.update_rating.returning[0].rating,"/5")
+            }
+        }
+
+     
+
+   
+
+
+
+
+
+
+const props = defineProps(["movieid","movietitle", "moviethumbnail", "bgone", "bgtwo", "bgthree", "directorname", "description", "genre", "duration" , "date", "starOne", "starTwo", "starThree", "starFour", "starFive", "rate"])
 let imagenumber = 3
 function previous(){
     let currentimage = document.getElementById( `slideshoow${imagenumber}`)

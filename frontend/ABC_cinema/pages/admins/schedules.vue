@@ -41,7 +41,6 @@
 </template>
 
 <script setup>
-
 import { useForm } from 'vee-validate';
     definePageMeta({
             layout:""

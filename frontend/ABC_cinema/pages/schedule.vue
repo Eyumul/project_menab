@@ -127,11 +127,10 @@ yyyy = dayAfterTomorrow.getFullYear();
 dayAfterTomorrow = yyyy + '-' + mm + '-' + dd;
 const commingSoon = ref([])
 for(const schedule of schedules.value.schedule){
-    if (schedule.date != today && schedule.date != tomorrow && schedule.date != dayAfterTomorrow && !isPastDate(schedule.date)){
+    if (schedule.date != today && schedule.date != tomorrow && schedule.date != dayAfterTomorrow && !isPastDate(schedule.date) ){
         commingSoon.value.push({"title": schedule.movie.title, "thumbnail": schedule.movie.thumbnail})
     }
 }
-
 function istodayempty() {
     for(const schedule of schedules.value.schedule){
         if (schedule.date == today) {return false}

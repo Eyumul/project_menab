@@ -25,6 +25,7 @@
                 </div>
             </NuxtLink>
         </div>
+        <p class="text-xl text-[#0089D0] hover:underline"><NuxtLink to="./">Preview</NuxtLink></p>
     </div>
 </template>
 

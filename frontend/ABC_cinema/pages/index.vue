@@ -11,17 +11,25 @@
         </div>
         <div v-for = "trendings in trendingmovie.movie" :key = "trendings.title" >
             <div v-if="trendings.trending">
-                <trending :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :bgone="prefix + trendings.featured_images[0].image_one + sufix" :bgtwo="prefix + trendings.featured_images[0].image_two + sufix" :bgthree="prefix + trendings.featured_images[0].image_three + sufix" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
+                <trending :movieid="trendings.id" :movietitle="trendings.title" :moviethumbnail="trendings.thumbnail" :bgone="prefix + trendings.featured_images[0].image_one + sufix" :bgtwo="prefix + trendings.featured_images[0].image_two + sufix" :bgthree="prefix + trendings.featured_images[0].image_three + sufix" :directorname="trendings.director.name" :description="trendings.description" :genre="trendings.genre" :duration="trendings.duration" :star-one="trendings.movie_stars[0].star.name" :star-two="trendings.movie_stars[1].star.name" :star-three="trendings.movie_stars[2].star.name" :star-four="trendings.movie_stars[3].star.name" :star-five="trendings.movie_stars[4].star.name" :rate="trendings.ratings_aggregate.aggregate.avg.rating"  />
             </div>
         </div>
-        <div v-if="isAuthenticated">
+        <div v-if="isAuthenticated && role == 'user'">
             <div class="flex space-x-8 justify-center pt-16 content end">
                 <img src="/public/figmaImage/dashboard.png"/>
                 <p id="here" class="s32 font-normal">My Dashboard</p>
             </div>
-            <div class="flex flex-col mx-[138px] py-20 space-y-[125px]">
-                <div class="text-center text-xs text-gray-400">
-                    Welcome {{ username.name }}!!! to your dashboard.
+            <div class="flex flex-col mx-[138px] py-10 space-y-[125px]">
+                <div class="capitalize text-center text-sm text-yellow-400">
+                    {{welcomemessage}}
+                </div>
+            </div>
+            <div>
+                <h1 class="ml-5 px-10 underline text-[#0089D0] text-3xl">Saved movies</h1>
+                <div  class="flex flex-wrap w-[100%] pt-[77px] px-10">
+                    <div class="m-5" v-for = "movies in savedmovieresult" :key="movies.movie.title">
+                        <MovieCardOne :movielink="movies.movie.title" :moviethumbnail="movies.movie.thumbnail" :movietitle=" movies.movie.title "/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,7 +38,10 @@
 
 <script setup>
 import { useAuth0 } from '@auth0/auth0-vue';
+import {jwtDecode} from 'jwt-decode';
 const auth0 = process.client ? useAuth0() : undefined
+const welcomemessage = ref("")
+const savedmovieresult = ref([])
 const login = () => {
     auth0?.loginWithRedirect()
 }
@@ -40,10 +51,54 @@ const isAuthenticated = computed(() => {
 const username = computed(() => {
     return auth0?.user.value
 })
-    
-const query = gql`
+getHasuraToken()
+const hasuraId = ref('')
+const role = ref('')
+setTimeout( async () => {
+    if(process.client){
+        const tokentext = localStorage.getItem('hasura-token')
+            if (tokentext) {
+            const decodedToken = jwtDecode(tokentext);
+            role.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+            hasuraId.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-user-id']
+            }
+}}, 1000);
+async function syncUsers() {
+    setTimeout( async () => {
+      // mutation for adding user or updating a user if it exist
+      const addUsers = gql `
+        mutation MyMutation($email: String, $name: String, $phone_number: Int) {
+            insert_profile_one(object: {email: $email, name: $name, phone_number: $phone_number}, on_conflict: {constraint: profile_user_id_key, update_columns: [name, email]}) {
+                email
+                name
+                phone_number
+                username
+            }
+        }`
+      const { mutate:addUser } = useMutation(addUsers)
+      const userData = {
+        name: auth0?.user.value.name,
+        phone_number: auth0?.user.value.phone ? auth0?.user.value.phone: null,
+        email: auth0?.user.value.email,
+      }
+      const { data } = await addUser(userData)
+      welcomemessage.value = "Welcome to your dashboard " + data.insert_profile_one.username + " !!!"
+      console.log(welcomemessage.value)
+      savedmovieresult.value = (await savedmoviefunction()).value.saved_movie
+    }, 1000);
+}
+if(process.client){
+    if(auth0?.isAuthenticated.value) {
+        syncUsers()
+    }
+
+}
+
+
+const trendingquery = gql`
 query myquery {
   movie {
+    id
     title
     thumbnail
     director {
@@ -75,7 +130,23 @@ query myquery {
   }
 }
 `
-const { data:trendingmovie } = await useAsyncQuery(query)
+const { data:trendingmovie } = await useAsyncQuery(trendingquery)
+
+async function savedmoviefunction (){
+    const savedquery = gql`
+    query MyQuery {
+      saved_movie {
+        movie {
+          title
+          thumbnail
+        }
+      }
+    }
+    `
+    const {data:savedMovies} = await useAsyncQuery(savedquery)
+    return savedMovies
+}
+
 const prefix = "url('"
 const sufix = "')"
 // const featuredone = "url('"+ trendingmovie.value.movie[0].featured_images[0].image_one + "')"
