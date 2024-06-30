@@ -46,10 +46,12 @@
                         </svg>
                         <div>
                             <p class="textColor">Date</p>
-                            <ul class="list-disc list-inside indent-3">
-                                <li>3:00 PM</li>
-                                <li>6:00 PM</li>
-                                <li>9:00 PM</li>
+                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                    <div v-for="(schedule, index) in schedules.schedule" :key="index" :for="schedule.id" class="flex items-center ps-3">
+                                        <input v-if="schedule.movie.title == movietitle && !isPastDate(schedule.date) && !Tx_refs.includes('Sche'+schedule.id+'User'+id)" :id="schedule.id" :value="schedule.id" v-model="selectedOption" :="selectedOptionProps" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label v-if="schedule.movie.title == movietitle && !isPastDate(schedule.date) && !Tx_refs.includes('Sche'+schedule.id+'User'+id)" :for="schedule.id" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ formatDateshort(schedule.date) }} <span class="text-blue-500">{{ convertTo12HourFormat(schedule.time) }}</span></label>                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -78,32 +80,35 @@
                         </svg>
                     </div>
                 </div>
-                <div v-if="auth0?.isAuthenticated.value && role == 'user'"  class="flex space-x-7 hover:bg-[#016699] cursor-pointer button justify-center items-center">
+                <div v-if="auth0?.isAuthenticated.value && role == 'user'" @click="buyTicket"  class="flex space-x-7 hover:bg-[#016699] cursor-pointer button justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10 text-black">
                         <path fill-rule="evenodd" d="M1.5 6.375c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v3.026a.75.75 0 0 1-.375.65 2.249 2.249 0 0 0 0 3.898.75.75 0 0 1 .375.65v3.026c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 17.625v-3.026a.75.75 0 0 1 .374-.65 2.249 2.249 0 0 0 0-3.898.75.75 0 0 1-.374-.65V6.375Zm15-1.125a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0v.75a.75.75 0 0 0 1.5 0v-.75Zm-.75 3a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-1.5 0v-.75a.75.75 0 0 1 .75-.75Zm.75 4.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75ZM6 12a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" />
                     </svg>
                     <div class="text-2xl font-black">Buy Ticket</div>
                 </div>
+                <p class="text-red-500 text-sm text-center">{{ errors.selectedOption }}</p>
                 <p v-if="auth0?.isAuthenticated.value"   class="hidden">{{ movieId = movieid }}</p>
             </div>
         </div>
 </template>
 
 <script setup>
+import { useForm } from 'vee-validate';
 import { useAuth0 } from '@auth0/auth0-vue';
 import {jwtDecode} from 'jwt-decode';
 const auth0 = process.client ? useAuth0() : undefined
 const hasuraId = ref('')
 const role = ref('')
-if(process.client){
-    const tokentext = localStorage.getItem('hasura-token')
-        if (tokentext) {
-        const decodedToken = jwtDecode(tokentext);
-        role.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-default-role'];
-        hasuraId.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-user-id']
-        }
-}
-    
+setTimeout( async () => {
+    if(process.client){
+        const tokentext = localStorage.getItem('hasura-token')
+            if (tokentext) {
+            const decodedToken = jwtDecode(tokentext);
+            role.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-default-role'];
+            hasuraId.value = decodedToken['https://hasura.io/jwt/claims']['x-hasura-user-id']
+            }
+    }
+}, 1000);
         const movieId = ref('')
         const saveinsertion = gql`
         mutation MyMutation($movie_id: Int!, $user_id: Int!) {
@@ -132,6 +137,9 @@ if(process.client){
         const { mutate: removemutate } = useMutation(deleteinsertion)
         
             const id = ref(null)
+            const name = ref(null)
+            const email = ref(null)
+            const phoneNumber = ref(null)
             const isSaved = ref(null)
             let movies = []
             setTimeout( async () => {
@@ -139,15 +147,21 @@ if(process.client){
                     const profilequery = gql`
                         query MyQuery {
                             profile {
+                                username
+                                email
                                 id
+                                phone_number
                                 saved_movies {
                                     movie_id
                                 }
                             }
                         }`
                     const {data, error} = await useAsyncQuery(profilequery)
-                    if (error.value && role.value == 'user') location.reload()
+                    if (error.value && role.value != 'cinemaadmin') location.reload()
                     id.value = data.value.profile[0].id
+                    name.value = data.value.profile[0].username
+                    email.value = data.value.profile[0].email
+                    phoneNumber.value = data.value.profile[0].phone_number
                     
                     for (const movie of data.value.profile[0].saved_movies){
                         movies.push(movie.movie_id)
@@ -205,7 +219,7 @@ if(process.client){
                     }
                 }`
             const { data, error} = await useAsyncQuery(RATING_QUERY);
-            if (error.value) location.reload()
+            if (error.value && role.value != 'cinemaadmin') location.reload()
             for (const rate of data.value.rating){
                 if(rate.movie_id == movieId.value) {
                     rating.value = rate.rating
@@ -227,6 +241,134 @@ if(process.client){
         }
 
      
+
+
+
+
+
+// *********************************** this is for buy ticket ***********************************************
+// const goTo = ref(null)
+function schedulerequired(value) {
+            return value ? true : 'Select a schedule (date and time)';
+        }
+    const { defineField, handleSubmit, errors } = useForm({
+        validationSchema: {
+            selectedOption: schedulerequired
+        },
+    });
+    const [selectedOption, selectedOptionProps] = defineField('selectedOption')
+
+const buyTicket = handleSubmit(async () => {
+    const textReference = "Sche"+selectedOption.value+"User"+id.value
+    console.log(textReference,1111111111,"This is the schedule Id: ",selectedOption.value,"User Id: ",id.value,"Name: ",name.value,"Email: ",email.value,"Phone No: ", "0"+phoneNumber.value)
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer CHASECK_TEST-VaOxMwzA1qLJ4BQccX9kCSlDPa7uJCfM");
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+    "amount": "100",
+    "currency": "ETB",
+    "tx_ref": textReference,
+    "email": email.value,
+    "first_name": name.value,
+    "phone_number": "0"+phoneNumber.value,
+    "callback_url": "http://localhost:3003/api/payment-callback",
+    "return_url": "http://localhost:3000/tickets/"+textReference,
+    "customization[title]": "Payment for ABC_cinema",
+    "customization[description]": "Phurchased a movie"
+    });
+
+    var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost:3001/initialize-transaction", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        if (result.status === "success") {
+        const checkoutUrl = result.data.checkout_url;
+        // Redirect to the checkout URL
+        window.location.href = checkoutUrl;
+        } else {
+        console.error("Failed to get checkout URL:", result.message);
+        }
+    })
+    .catch(error => console.log('error', error));
+});
+
+// *********************** this is schedule query and date & time formats
+const schedulequery = gql`
+query MyQuery {
+  schedule {
+    date
+    movie_id
+    id
+    time
+    movie {
+      thumbnail
+      title
+    }
+  }
+}
+`
+const {data: schedules} = await useAsyncQuery(schedulequery)
+function isPastDate(inputDate) {
+  // Parse the input date
+  const date = new Date(inputDate);
+
+  // Get the current date and time
+  const now = new Date();
+
+  // Compare the input date with the current date
+  return date < now;
+}
+function convertTo12HourFormat(time) {
+  let [hours, minutes, seconds] = time.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  hours = String(hours).padStart(2, '0');
+  minutes = String(minutes).padStart(2, '0');
+  seconds = String(seconds).padStart(2, '0');
+  return `${hours}:${minutes} ${period}`;
+}
+function formatDateshort(inputDate) {
+  const date = new Date(inputDate);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const dayName = days[date.getUTCDay()]; // Get the day of the week
+  const monthName = months[date.getUTCMonth()]; // Get the month
+  const day = date.getUTCDate(); // Get the day of the month
+  const year = date.getUTCFullYear(); // Get the year
+  return `${dayName} ${day} ${monthName}`;
+}
+
+const Tx_refs = ref([])
+// *********************************** check for ticket ********************************************** 
+setTimeout( async () => {
+const ticketquery = gql`
+query MyQuery {
+  ticket {
+    schedule_id
+    user_id
+  }
+}
+`
+if(role.value == "user") {
+    const {data: tickets} = await useAsyncQuery(ticketquery)
+for(const ticket of tickets.value.ticket){
+    Tx_refs.value.push("Sche"+ticket.schedule_id+"User"+ticket.user_id)
+}
+console.log(Tx_refs.value)
+}
+}, 1000);
+        
 
    
 

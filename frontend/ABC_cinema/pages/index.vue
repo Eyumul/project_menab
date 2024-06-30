@@ -32,6 +32,24 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <h1 class="ml-5 px-10 mt-36 underline text-[#0089D0] text-3xl">Booked Schedules</h1>
+                <div  class="flex flex-wrap w-[100%] pt-[77px]">
+                    <div v-for="ticket in tickets" :key="ticket.tx_ref">
+                        <div class="flex w-[600px] justify-around mx-12 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
+                            <div class="self-center">
+                                <h2 class="self-center text-lg w-[75px] text-[#0089D0]">{{ formatDateshort(ticket.schedule.date) }}</h2>
+                                <h2 class="self-center text-lg w-[75px] text-[#0089D0]">{{ convertTo12HourFormat(ticket.schedule.time) }}</h2>
+                            </div>
+                            <NuxtImg :src="ticket.schedule.movie.thumbnail" class="w-[200px] h-[150px] rounded-[12px]"/>
+                            <h3 class="self-center w-[200px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="'./tickets/'+ticket.tx_ref">{{ ticket.schedule.movie.title }}</NuxtLink></h3>
+                        </div>
+                    </div>
+                </div>
+                
+                    
+                
+            </div>
         </div>
     </div>
 </template>
@@ -42,6 +60,7 @@ import {jwtDecode} from 'jwt-decode';
 const auth0 = process.client ? useAuth0() : undefined
 const welcomemessage = ref("")
 const savedmovieresult = ref([])
+const tickets = ref([])
 const login = () => {
     auth0?.loginWithRedirect()
 }
@@ -85,6 +104,7 @@ async function syncUsers() {
       welcomemessage.value = "Welcome to your dashboard " + data.insert_profile_one.username + " !!!"
       console.log(welcomemessage.value)
       savedmovieresult.value = (await savedmoviefunction()).value.saved_movie
+      tickets.value = (await ticketfunction()).value.ticket 
     }, 1000);
 }
 if(process.client){
@@ -146,9 +166,50 @@ async function savedmoviefunction (){
     const {data:savedMovies} = await useAsyncQuery(savedquery)
     return savedMovies
 }
+async function ticketfunction (){
+    const ticketquery = gql`
+    query MyQuery {
+  ticket {
+    tx_ref
+    schedule {
+      date
+      time
+      movie {
+        title
+        thumbnail
+      }
+    }
+  }
+}
+    `
+    const {data:movietickets} = await useAsyncQuery(ticketquery)
+    return movietickets
+}
 
 const prefix = "url('"
 const sufix = "')"
+function convertTo12HourFormat(time) {
+  let [hours, minutes, seconds] = time.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  hours = String(hours).padStart(2, '0');
+  minutes = String(minutes).padStart(2, '0');
+  seconds = String(seconds).padStart(2, '0');
+  return `${hours}:${minutes} ${period}`;
+}
+function formatDateshort(inputDate) {
+  const date = new Date(inputDate);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const dayName = days[date.getUTCDay()]; // Get the day of the week
+  const monthName = months[date.getUTCMonth()]; // Get the month
+  const day = date.getUTCDate(); // Get the day of the month
+  const year = date.getUTCFullYear(); // Get the year
+  return `${dayName} ${day} ${monthName}`;
+}
 // const featuredone = "url('"+ trendingmovie.value.movie[0].featured_images[0].image_one + "')"
 // const featuredtwo = "url('" + trendingmovie.value.movie[0].featured_images[0].image_two + "')"
 // const featuredthree = "url('" + trendingmovie.value.movie[0].featured_images[0].image_three + "')"

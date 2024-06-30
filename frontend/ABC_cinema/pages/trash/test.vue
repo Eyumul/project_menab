@@ -65,10 +65,91 @@
     <button @click="handleUpdateDirector">Update Director</button>
   </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="max-w-sm mx-auto bg-gray-900 text-gray-200 shadow-xl rounded-lg overflow-hidden mt-10 p-6">
+    <div class="text-center mb-6">
+      <h2 class="text-3xl font-bold text-yellow-500">Receipt</h2>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Customer name:</span> Chala</p>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Ticket for movie:</span> Hit Man</p>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Movie date:</span> Mon July 1 - 2024</p>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Movie time:</span> 09:50 AM</p>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Tx_ref:</span> Sche23User43</p>
+    </div>
+    <div class="mb-4 border-b border-gray-700 pb-2">
+      <p><span class="font-semibold text-yellow-500">Price:</span> 100 ETB</p>
+    </div>
+    <div class="mb-4">
+      <p><span class="font-semibold text-yellow-500">Status:</span> Payed</p>
+    </div>
+  </div>
+
       </div>
     </template>
   
   <script setup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Define the mutation
 const updateDirectorMutation = gql`
@@ -115,32 +196,7 @@ async function handleUpdateDirector() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  import { useAuth0 } from '@auth0/auth0-vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 import { ref, onMounted } from 'vue';
 const time = ref("")
 
