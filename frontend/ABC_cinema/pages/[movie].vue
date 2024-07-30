@@ -60,10 +60,14 @@
                             <div>
                             <p class="textColor">Date</p>
                             <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                <li class="flex flex-col items-center w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                     <div v-for="(schedule, index) in schedules.schedule" :key="index" :for="schedule.id" class="flex items-center ps-3">
                                         <input v-if="schedule.movie.title == movie && !isPastDate(schedule.date) && !Tx_refs.includes('Sche'+schedule.id+'User'+id)" :id="schedule.id" :value="schedule.id" v-model="selectedOption" :="selectedOptionProps" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label v-if="schedule.movie.title == movie && !isPastDate(schedule.date) && !Tx_refs.includes('Sche'+schedule.id+'User'+id)" :for="schedule.id" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ formatDateshort(schedule.date) }} <span class="text-blue-500">{{ convertTo12HourFormat(schedule.time) }}</span></label>                                    </div>
+                                        <label v-if="schedule.movie.title == movie && !isPastDate(schedule.date) && !Tx_refs.includes('Sche'+schedule.id+'User'+id)" :for="schedule.id" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ formatDateshort(schedule.date) }} <span class="text-blue-500">{{ convertTo12HourFormat(schedule.time) }}</span></label>                                    
+                                    </div>
+                                    <div v-if="!hasvalidschedule">
+                                        <p class="text-red-400 my-2">No avaliable date to book</p>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -156,9 +160,6 @@
 }
 `
 const { data } = await useAsyncQuery(query, {_eq: movie})
-
-
-
 
 
 
@@ -480,6 +481,14 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearInterval(intervalId)
 })
+const hasvalidschedule = ref(false)
+for (var schedule of schedules.value.schedule){
+    if(schedule.movie.title == movie && !isPastDate(schedule.date) && !Tx_refs.value.includes('Sche'+schedule.id+'User'+id.value)) {
+        hasvalidschedule.value = true
+        break
+    }
+}
+
 </script>
 
 <style scoped>
@@ -500,9 +509,9 @@ onBeforeUnmount(() => {
 }
 .movieTitleExpanded {
     width:100%;
-    font-size:32px;
+    font-size:48px;
     text-align:center;
-    text-transform: uppercase;
+    font-family: "Bebas Neue", sans-serif;
     font-weight:900;
     background: -webkit-linear-gradient(right, #24B4FF, #90D9FF);
     -webkit-background-clip: text;

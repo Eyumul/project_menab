@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-      <div class="border-2 p-5 rounded-[20px] space-x-8 border-[#90D9FF] bg-gray-800 flex">
+      <div class="border-2 p-1 rounded-xl space-x-8 border-[#90D9FF] bg-gray-800 flex">
         <p v-if="!isEditing" class="p-2 mr-8 ml-4 text-xl font-bold">{{ oldtext }}</p>
         <input
           v-else

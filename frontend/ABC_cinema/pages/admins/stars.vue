@@ -8,14 +8,14 @@
                     </svg>
                     <p class="self-center text-2xl font-black">Back</p>
                 </NuxtLink>
-                <p class="text-4xl content-center pr-[800px]">Edit Stars</p>
+                <p class="text-4xl content-center pr-[800px] font-[limelight]">Edit Stars</p>
             </nav>
         </div>
         <div class="flex flex-col text-xl space-y-12 py-24 w-full items-center">
             <AddStarForm class="w-[600px]"/>
         </div>
         <p class="text-red-500 text-center">{{ conflictError }}</p> 
-        <div class="flex flex-wrap pl-36 bg-black">
+        <div class="flex flex-wrap justify-center self-center px-20 bg-black">
             <div class="m-5" v-for="(star, index) in oldtext" :key="index">
                 <EditForm :oldtext="star" :newtext="newtext" @update:oldtext="updateOldText" @save="handleSave(index)" @delete="handleDelete(index)"/>
             </div>

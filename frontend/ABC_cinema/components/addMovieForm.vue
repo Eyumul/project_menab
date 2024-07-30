@@ -1,15 +1,15 @@
 <template>
     <div class="flex flex-col space-y-24 items-center bg-black text-white">
         <form class="text-white w-[600px] text-xl">
-            <fieldset  class="flex flex-col space-y-4 bg-black border-2 border-[rgb(0,137,208,0.5)] rounded-[20px] p-5">
+            <fieldset  class="flex flex-col space-y-4 bg-black border-2 border-[rgb(0,137,208,0.5)] rounded-xl p-5">
                 <legend> Movie </legend>
                 <div class="flex justify-between items-center">
                     <label>Title: </label>
-                    <input v-model="movietitle" :="movietitleProps" type="text" class="w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
+                    <input v-model="movietitle" :="movietitleProps" type="text" class="w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg" />
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Genre:</label>
-                    <select v-model="moviegenre" :="moviegenreProps" class = "w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviegenre" :="moviegenreProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option>Scifi</option>
                         <option>Action</option>
                         <option>Drama</option>
@@ -23,84 +23,84 @@
                     <label>Duration:</label>
                     <div class="w-[380px] flex justify-around">
                         <div>
-                            <input v-model="hours" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[10px] mr-4" type="number" min="1" max="4"/><label>H</label>
+                            <input v-model="hours" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg mr-4" type="number" min="1" max="4"/><label>H</label>
                         </div>
                         <div>
-                            <input v-model="minutes" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[10px] mr-4" type="number" min="00" max="59" /><label>M</label>
+                            <input v-model="minutes" class=" border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg mr-4" type="number" min="00" max="59" /><label>M</label>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Director:</label>
-                    <select v-model="moviedirector" :="moviedirectorProps" class="w-[380px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviedirector" :="moviedirectorProps" class="w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" director.id" v-for="director in directors.director" :key="director">{{director.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star one:</label>
-                    <select v-model="moviestarone" :="moviestaroneProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviestarone" :="moviestaroneProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star two:</label>
-                    <select v-model="moviestartwo" :="moviestartwoProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviestartwo" :="moviestartwoProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star three:</label>
-                    <select v-model="moviestarthree" :="moviestarthreeProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviestarthree" :="moviestarthreeProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star four:</label>
-                    <select v-model="moviestarfour" :="moviestarfourProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviestarfour" :="moviestarfourProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Movie star five:</label>
-                    <select v-model="moviestarfive" :="moviestarfiveProps" class = "w-[380px] h-[35px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                    <select v-model="moviestarfive" :="moviestarfiveProps" class = "w-[380px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                         <option :value=" star.id" v-for="star in stars.star" :key="star">{{star.name}}</option>
                     </select>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Description:</label>
-                    <textarea v-model="moviedescription" :="moviedescriptionProps" rows="10" cols="40" class="w-[380px] p-2 border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[10px] text-left rounded-[20px]"></textarea>
+                    <textarea v-model="moviedescription" :="moviedescriptionProps" rows="10" cols="40" class="w-[380px] p-2 border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[10px] text-left rounded-lg"></textarea>
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Thumbnail</label>
-                    <input @change="onThumbnailChange" type="file" class="w-[380px] h-[50px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
+                    <input @change="onThumbnailChange" type="file" class="w-[380px] h-[40px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
                 </div>
                 <div class="flex justify-between items-center">
                     <label>Featured images</label>
-                    <input multiple @change="onFeaturedImagesChange" type="file" class="w-[380px] h-[50px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
+                    <input multiple @change="onFeaturedImagesChange" type="file" class="w-[380px] h-[40px] text-[rgb(0,137,208)] bg-black text-[24px] p-2" />
                 </div>
                 <div class="flex space-x-12 items-center justify-end pr-32">
                     <input v-model="istrending" type="checkbox" class="border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)]" />
-                    <label>This movie is trending</label>
+                    <label class="font-[roboto]">This movie is trending</label>
                 </div>
-                <div @click="createMovie" class="cursor-pointer content-center w-full h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
+                <div @click="createMovie" class="cursor-pointer content-center w-full h-[40px] bg-[#0089D0] text-[24px] text-center text-white rounded-lg">Add</div>
             </fieldset>
         </form>
         <div>
             <p class="text-sm text-green-500">{{ movtitle }}</p>
-            <p class="text-red-800 text-sm">{{errors.movietitle  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviegenre  }}</p>
-            <p class="text-red-800 text-sm">{{errors.movieduration  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviedirector  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviestarone  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviestartwo  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviestarthree  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviestarfour  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviestarfive  }}</p>
-            <p class="text-red-800 text-sm">{{errors.moviedescription  }}</p>
-            <p class="text-red-800 text-sm">{{errors.thumbnail }}</p>
-            <p class="text-red-800 text-sm">{{errors.featuredImageOne }}</p>
-            <p class="text-red-800 text-sm">{{errors.featuredImageTwo }}</p>
-            <p class="text-red-800 text-sm">{{errors.featuredImageThree }}</p>
+            <p class="text-red-500 text-sm">{{errors.movietitle  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviegenre  }}</p>
+            <p class="text-red-500 text-sm">{{errors.movieduration  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviedirector  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviestarone  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviestartwo  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviestarthree  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviestarfour  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviestarfive  }}</p>
+            <p class="text-red-500 text-sm">{{errors.moviedescription  }}</p>
+            <p class="text-red-500 text-sm">{{errors.thumbnail }}</p>
+            <p class="text-red-500 text-sm">{{errors.featuredImageOne }}</p>
+            <p class="text-red-500 text-sm">{{errors.featuredImageTwo }}</p>
+            <p class="text-red-500 text-sm">{{errors.featuredImageThree }}</p>
         </div>
     </div>
 </template>
@@ -302,5 +302,7 @@ const{mutate: featuredImagemutate} = useMutation(featuredImageinsertion)
 </script>
 
 <style>
-
+label {
+    font-family: "oswald";
+}
 </style>

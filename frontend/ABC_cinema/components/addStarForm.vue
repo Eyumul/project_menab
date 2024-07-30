@@ -3,10 +3,10 @@
         <div class="space-y-3">
                 <div class="flex items-center w-full justify-between">
                     <label>Insert movie star: </label>
-                    <input v-model="starname" :="starnameProps" @keyup.enter="createStar" type="text" class="w-[280px] h-[50px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]" />
-                    <div @click="createStar" class="cursor-pointer content-center w-[80px] h-[50px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
+                    <input v-model="starname" :="starnameProps" @keyup.enter="createStar" type="text" class="w-[280px] h-[40px] border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg" />
+                    <div @click="createStar" class="cursor-pointer content-center w-[80px] h-[40px] bg-[#0089D0] text-[24px] text-center text-white rounded-lg">Add</div>
                 </div>
-                <p class="text-red-800 text-sm">{{ errors.starname  }}</p>
+                <p class="text-red-500 text-center text-sm">{{ errors.starname  }}</p>
                 <p class="text-sm text-green-500">{{ strname }}</p>
         </div>
     </div>
@@ -19,7 +19,7 @@ import * as Yup from 'yup';
 
 //validation rule function
 function required(value) {
-  return value ? true : 'field is required';
+  return value ? true : 'Movie-star name is required';
 }
 
 // Create the form

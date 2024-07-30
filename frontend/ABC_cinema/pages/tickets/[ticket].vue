@@ -37,8 +37,8 @@ definePageMeta({
             layout:""
         })
 const {ticket} = useRoute().params
-const scheduleId = ticket.slice(4,6)
-const userId = ticket.slice(10,12)
+const scheduleId = Number(ticket.slice(4,6))
+const userId = Number(ticket.slice(10))
 const customerName = ref("")
 const movieName = ref("")
 const date = ref("")
@@ -46,7 +46,7 @@ const time = ref("")
 const Tx_ref = ref("")
 const price = ref(" ")
 const status = ref(" ")
-console.log(scheduleId,userId)
+console.log(scheduleId,userId,ticket)
 function convertTo12HourFormat(time) {
   let [hours, minutes, seconds] = time.split(':').map(Number);
   const period = hours >= 12 ? 'PM' : 'AM';

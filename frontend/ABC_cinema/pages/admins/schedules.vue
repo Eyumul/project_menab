@@ -7,23 +7,32 @@
                     </svg>
                     <p class="self-center text-2xl font-black">Back</p>
                 </NuxtLink>
-                <p class="text-4xl content-center pr-[800px]">Edit Schedules</p>
+                <p class="text-4xl content-center pr-[800px] font-[limelight]">Edit Schedules</p>
             </nav>
             <div class="flex flex-col">
                 <h1 class="text-2xl self-center py-16">Insert a schedule </h1>
-                <form class="flex self-center">
-                    <label class="mr-4 text-xl">Movie:</label>
-                            <select v-model="movieidinput" :="movieidProps" class="w-[380px] h-[35px] mr-12 px-8 border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-[20px]">
+                <form class="self-center">
+                    <fieldset  class="flex flex-col gap-10 bg-black border-2 border-[rgb(0,137,208,0.5)] rounded-xl p-5">
+                        <legend> Schedule </legend>
+                        <div class="flex justify-between gap-8">
+                            <label class="mr-8 text-xl">Movie:</label>
+                            <select v-model="movieidinput" :="movieidProps" class="w-[380px] h-[40px] px-8 border-none bg-black ring-[3px] ring-[rgb(0,137,208,0.5)] text-[24px] text-center rounded-lg">
                                 <option :value=" movie.id" v-for="movie in movies.movie" :key="movie">{{movie.title}}</option>
                             </select >
-                    <label class="mr-4 text-xl">Date:</label>
-                    <input v-model="dateinput" :="dateProps" class="w-[220px] h-[35px] mr-12 px-8 border-none bg-gray-700 ring-[3px] ring-[rgb(0,137,208,0.5)] text-[20px] text-center rounded-[15px]" type="date"/>
-                    <label class="mr-4 text-xl">Time:</label>
-                    <input v-model="timeinput" :="timeProps" class="w-[220px] h-[35px] mr-12 px-8 border-none bg-gray-700 ring-[3px] ring-[rgb(0,137,208,0.5)] text-[20px] text-center rounded-[15px]" type="time"/>
-                    <div @click="createSchedule" class="cursor-pointer content-center w-[80px] h-[35px] bg-[#0089D0] text-[24px] text-center text-white rounded-[20px]">Add</div>
+                        </div>
+                        <div class="flex justify-between gap-8">
+                            <label class="mr-8 text-xl">Date:</label>
+                            <input v-model="dateinput" :="dateProps" class="w-[380px] h-[40px] px-8 border-none bg-gray-700 ring-[3px] ring-[rgb(0,137,208,0.5)] text-[20px] text-center rounded-lg" type="date"/>
+                        </div>
+                        <div class="flex justify-between gap-8">
+                            <label class="mr-8 text-xl">Time:</label>
+                            <input v-model="timeinput" :="timeProps" class="w-[380px] h-[40px] px-8 border-none bg-gray-700 ring-[3px] ring-[rgb(0,137,208,0.5)] text-[20px] text-center rounded-lg" type="time"/>
+                        </div>
+                        <div @click="createSchedule" class="w-full cursor-pointer content-center w-[80px] h-[40px] bg-[#0089D0] text-[24px] text-center text-white rounded-lg">Add</div>
+                    </fieldset>
                 </form>
-                <div class="flex w-[1250px] self-center justify-between py-4">
-                    <p class="text-green-500 self-start">
+                <div class="flex flex-col text-center w-full self-center items-center py-4">
+                    <p class="text-green-500">
                         {{ schedule }}
                     </p>
                     <p class="text-red-800 mx-24">

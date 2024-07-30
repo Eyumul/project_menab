@@ -17,18 +17,23 @@
                     </form>
                 </div>
             </div>
-            <div v-if = "browsetype == 'No categories'">
+            <div v-if = "browsetype == 'No categories'" class="flex flex-col items-center">
                 <div  class="flex flex-wrap w-[100%] pt-[77px] px-10">
                     <div v-for="(movie, index) in visibleItems" :key="index" class="m-5"><MovieCardOne :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/></div>            
-                    <button class="self-center bg-[#0089D0] flex w-40 ml-6 mt-6 pl-4 justify-center items-center text-xl rounded-2xl h-12 font-black cursor-pointer" v-if="visibleItems.length < items.length" @click="loadMore">
-                        SEE MORE
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
-                            <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
-                        </svg>
+                </div>
+                <div>
+                    <button class="bg-[#0089D0] flex ml-6 mt-6 px-3 gap-3 hover:bg-[#015b88] justify-between items-center text-xl rounded-2xl h-12 font-black cursor-pointer" v-if="visibleItems.length < items.length" @click="loadMore">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                            </svg>
+                            <p>SEE MORE</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                            </svg>
                     </button>
                 </div>
             </div>
-            <div v-else-if = "browsetype == 'Genre'">
+            <div v-else-if = "browsetype == 'Genre'" class="text-center">
                 <div v-for="genre in genres"  class="flex flex-col" :key="genre">
                     <h1 class="text-[#0089D0] text-3xl px-16 pt-14 underline">{{genre}}</h1>
                     <div class="flex flex-wrap w-[100%] pb-10 px-10">
@@ -41,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if = "browsetype == 'Directors'">
+            <div v-else-if = "browsetype == 'Directors'" class="text-center">
                 <div class="flex pl-[138px] pt-10 space-x-4">
                     <div @click="searchdirector" class="cursor-pointer hover:text-[#0089D0]">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
@@ -88,7 +93,7 @@
     const browsetype = ref("No categories")
     const items = ref([]);         // Full list of items
     const visibleItems = ref([]);  // Items currently displayed
-    const itemsToShow = ref(4);    // Number of items to show initially and each time load more is clicked  
+    const itemsToShow = ref(8);    // Number of items to show initially and each time load more is clicked  
     const searchtext = ref("")
     const directormatches = ref([])
     

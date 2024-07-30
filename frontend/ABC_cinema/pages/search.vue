@@ -26,7 +26,7 @@
             </svg>
           </div>
         </div>
-        <div class="flex flex-wrap w-[100%] pt-[77px] px-10" >
+        <div class="flex flex-wrap self-center w-[100%] pt-[77px] px-16" >
           <div v-for="movie in moviematches" :key="movie.title">
             <MovieCardOne class="m-5" :movielink="movie.title" :moviethumbnail="movie.thumbnail" :movietitle=" movie.title "/>
           </div>

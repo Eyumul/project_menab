@@ -8,7 +8,7 @@
                     </svg>
                     <p class="self-center text-2xl font-black">Back</p>
                 </NuxtLink>
-                <p class="text-4xl content-center pr-[800px]">Edit Movies</p>
+                <p class="text-4xl content-center pr-[800px] font-[limelight]">Add Movies</p>
             </nav>
         </div>
         <div class="flex flex-col text-xl space-y-12 py-24 w-full bg-black items-center">

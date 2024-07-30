@@ -4,7 +4,7 @@
             <div>
                 <img src="/public/figmaImage/fire.png" />
             </div>
-            <div class="flex flex-col items-center">
+            <div class="font-[Limelight] flex flex-col items-center">
                 <p class="s32 font-normal">Trending movies</p>
                 <p class="s24">On cinema</p>
             </div>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div v-if="isAuthenticated && role == 'user'">
-            <div class="flex space-x-8 justify-center pt-16 content end">
+            <div class="font-[Limelight] flex space-x-8 justify-center pt-16 content end">
                 <img src="/public/figmaImage/dashboard.png"/>
                 <p id="here" class="s32 font-normal">My Dashboard</p>
             </div>
@@ -25,30 +25,27 @@
                 </div>
             </div>
             <div>
-                <h1 class="ml-5 px-10 underline text-[#0089D0] text-3xl">Saved movies</h1>
+                <h1 class="ml-10 px-10 mt-3 font-[oswald] font-black text-[#0089D0] text-3xl">Saved movies</h1>
                 <div  class="flex flex-wrap w-[100%] pt-[77px] px-10">
                     <div class="m-5" v-for = "movies in savedmovieresult" :key="movies.movie.title">
                         <MovieCardOne :movielink="movies.movie.title" :moviethumbnail="movies.movie.thumbnail" :movietitle=" movies.movie.title "/>
                     </div>
                 </div>
             </div>
-            <div>
-                <h1 class="ml-5 px-10 mt-36 underline text-[#0089D0] text-3xl">Booked Schedules</h1>
-                <div  class="flex flex-wrap w-[100%] pt-[77px]">
+            <div class="mt-36 m-5">
+                <h1 class="ml-5 px-10 mt-3 font-[oswald] font-black text-[#0089D0] text-3xl">Booked Schedules</h1>
+                <div  class="flex flex-wrap drop-shadow-2xl  w-[100%] pt-[77px]">
                     <div v-for="ticket in tickets" :key="ticket.tx_ref">
-                        <div class="flex w-[600px] justify-around mx-12 py-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
+                        <div class="flex w-[600px] justify-around  mx-2 py-4 my-4 rounded-[20px] border-[rgb(0,137,208,0.2)] border-2 bg-[#000e14] ">
                             <div class="self-center">
-                                <h2 class="self-center text-lg w-[75px] text-[#0089D0]">{{ formatDateshort(ticket.schedule.date) }}</h2>
-                                <h2 class="self-center text-lg w-[75px] text-[#0089D0]">{{ convertTo12HourFormat(ticket.schedule.time) }}</h2>
+                                <h2 class="self-center text-lg w-[80px] text-[#0089D0]">{{ formatDateshort(ticket.schedule.date) }}</h2>
+                                <h2 class="self-center text-base w-[75px] text-[#0089D0]">{{ convertTo12HourFormat(ticket.schedule.time) }}</h2>
                             </div>
                             <NuxtImg :src="ticket.schedule.movie.thumbnail" class="w-[200px] h-[150px] rounded-[12px]"/>
                             <h3 class="self-center w-[200px] text-xl text-[#24B4FF] font-black"><NuxtLink :to="'./tickets/'+ticket.tx_ref">{{ ticket.schedule.movie.title }}</NuxtLink></h3>
                         </div>
                     </div>
-                </div>
-                
-                    
-                
+                </div>            
             </div>
         </div>
     </div>
@@ -219,6 +216,26 @@ definePageMeta({
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Limelight&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+div {
+  font-family: "Roboto", sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+  background: gray;
+} 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #24B4FF; 
+  border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #80cbc4; 
+}
 .line {
     height: 500px;
     width: 3px;
@@ -253,9 +270,9 @@ definePageMeta({
 }
 .movieTitle {
     width:450px;
-    font-size:32px;
+    font-size:48px;
     text-align:center;
-    text-transform: uppercase;
+    font-family: "Bebas Neue", sans-serif;
     font-weight:900;
     background: -webkit-linear-gradient(right, #24B4FF, #90D9FF);
     -webkit-background-clip: text;
@@ -272,8 +289,9 @@ definePageMeta({
 .movieDescription{
     width: 582px;
     text-indent: 30px;
-    font-size:16px;
-    font-weight:300;
+    font-size:14px;
+    font-weight:400;
+    font-family: "roboto", sans-serif;
 }
 .movieGenre {
     width: 582px;
